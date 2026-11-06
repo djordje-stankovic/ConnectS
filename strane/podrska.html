@@ -9,9 +9,21 @@
 
 <section class="odeljak">
   <div class="omot dvokol">
-    <div>
+    <div class="lepljivo">
       <div class="nadnaslov" data-r>Šta je uključeno</div>
       <h2 data-split>Brinemo o sistemu <em>i pre</em> nego što zapne.</h2>
+      <p class="uvod" data-r style="margin-top:22px">Podrška nije samo dežurni telefon. Jednom mesečno pregledamo vašu bazu, javimo šta treba uraditi i uradimo to pre nego što primetite.</p>
+      <div class="tok-ploca" data-r data-mk data-ponovi="9000" style="--k:var(--narandza);margin-top:30px">
+        <div class="naslov">podrška · mesečni pregled</div>
+        <div class="mk-tok">
+          <div style="--i:0"><span>pregled baze</span><span>indeksi ✓</span></div>
+          <div style="--i:1"><span>referencijalni integritet</span><span>0 grešaka</span></div>
+          <div style="--i:2"><span>ažuriranje PANTHEON-a</span><span>zakazano posle 22h</span></div>
+          <div style="--i:3"><span>obuka</span><span>2 nova korisnika</span></div>
+          <div style="--i:4" class="kraj"><span>upit sa telefona</span><span>rešen daljinski ✓</span></div>
+        </div>
+        <div class="dno">Sledeći pregled — za mesec dana, bez podsećanja.</div>
+      </div>
     </div>
     <ol class="lista-o" data-grupa>
       <li data-r><b>Mesečni pregled baze</b><span>I plan optimizacije — pre nego što uspori.</span></li>
@@ -32,31 +44,45 @@
       <div class="nadnaslov" data-r>Kako do nas</div>
       <h2 data-split>Kako vama <em>odgovara.</em></h2>
     </div>
-    <div class="nacini" data-grupa>
-      <span data-r>Daljinski pristup (RDS)</span>
-      <span data-r>Kod vas, u firmi</span>
-      <span data-r>Kod nas, u kancelariji</span>
-      <span data-r>Telefonom — {{tel}}</span>
-      <span data-r>Mejlom — {{mejl}}</span>
+    <div class="kanali" data-grupa>
+      <div class="kanal velik" data-r>
+        <span class="ik">{{ik:veza}}</span>
+        <div class="kanal-sema" aria-hidden="true">
+          <span class="sema-cvor"><small>Kod vas</small><b>PANTHEON</b></span>
+          <span class="sema-kabl"><i></i><i></i><i></i><span>RDS · šifrovano</span></span>
+          <span class="sema-cvor"><small>Kod nas</small><b>Podrška</b></span>
+        </div>
+        <h3>Daljinski pristup</h3>
+        <p>Najbrži put: uđemo u sistem uz vašu dozvolu, vidimo isto što i vi i rešimo dok ste na vezi.</p>
+      </div>
+      <a class="kanal tel" data-r href="tel:{{telHref}}"><span class="ik">{{ik:telefon}}</span><h3>{{tel}}</h3><p>Telefonom — za sve što ne može da čeka mejl.</p></a>
+      <a class="kanal" data-r href="mailto:{{mejl}}"><span class="ik">{{ik:mejl}}</span><h3>Mejlom</h3><p>{{mejl}}</p></a>
+      <div class="kanal" data-r><span class="ik">{{ik:usluge}}</span><h3>Kod vas, u firmi</h3><p>Uvođenje, obuka, složeni procesi — za stolom sa ljudima koji rade.</p></div>
+      <div class="kanal" data-r><span class="ik">{{ik:ljudi}}</span><h3>Kod nas</h3><p>{{adresa}} — u našoj kancelariji.</p></div>
+      <a class="kanal upit" data-r href="kontakt.html?upit=Podrška"><span class="ik">{{ik:kljuc}}</span><h3>Pošaljite upit →</h3><p>Opišite problem, javljamo se brzo.</p></a>
     </div>
   </div>
 </section>
 
 <section class="odeljak">
-  <div class="omot">
-    <div class="zaglavlje-odeljka">
+  <div class="omot tok-blok">
+    <div>
       <div class="nadnaslov" data-r>Podrška koja vidi unapred</div>
       <h2 data-split>Kad problem vidite <em>pre nas</em> — i pre knjigovođe.</h2>
-      <p class="uvod" data-r>Vidik javlja kad se knjiga računa i POPDV ne slažu, kad zaliha ode u minus ili kupac uđe u blokadu. Greška se ispravi dok je mala.</p>
+      <p class="uvod" data-r style="margin-top:22px">Vidik javlja kad se knjiga računa i POPDV ne slažu, kad zaliha ode u minus ili kupac uđe u blokadu. Greška se ispravi dok je mala.</p>
+      <div class="drugi-proizvodi" data-grupa style="grid-template-columns:1fr;margin-top:28px">
+        <a class="drugi" data-r href="vidik.html" style="--k:var(--vidik)"><span class="znak-p">{{ik:vidik}}</span><span><b>Vidik</b><span>Kontrole koje same traže grešku</span></span><span class="str">→</span></a>
+        <a class="drugi" data-r href="fioka.html" style="--k:var(--fioka)"><span class="znak-p">{{ik:fioka}}</span><span><b>Fioka</b><span>Manje prekucavanja, manje grešaka</span></span><span class="str">→</span></a>
+      </div>
     </div>
-    <div class="drugi-proizvodi" data-grupa>
-      <a class="drugi" data-r href="vidik.html" style="--k:var(--vidik)"><span class="znak-p">{{ik:vidik}}</span><span><b>Vidik</b><span>Kontrole koje same traže grešku</span></span><span class="str">→</span></a>
-      <a class="drugi" data-r href="fioka.html" style="--k:var(--fioka)"><span class="znak-p">{{ik:fioka}}</span><span><b>Fioka</b><span>Manje prekucavanja, manje grešaka</span></span><span class="str">→</span></a>
+    <div data-r="desno" style="position:relative">
+      <div class="sjaj" aria-hidden="true" style="--k:var(--vidik)"></div>
+      <div class="uredjaj" data-nagib><div class="uredjaj-unutra">{{mk:vidik}}</div></div>
     </div>
   </div>
 </section>
 
-<section class="poziv tamno">
+<section class="poziv narandzasto">
   <div class="omot">
     <div class="nadnaslov" data-r>Upit za podršku</div>
     <h2 data-split>Šta vas <em>muči?</em></h2>
