@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vidik — upravljački kokpit nad PANTHEON-om | Connect Software</title>
+<meta name="description" content="Naplata, marža, zalihe i PDV iz PANTHEON baze na jednom ekranu i na telefonu. Kontrole koje same nađu grešku, klik do dokumenta. Samo čita.">
+<meta name="theme-color" content="#0a101c">
+<meta property="og:title" content="Vidik — upravljački kokpit nad PANTHEON-om | Connect Software">
+<meta property="og:description" content="Naplata, marža, zalihe i PDV iz PANTHEON baze na jednom ekranu i na telefonu. Kontrole koje same nađu grešku, klik do dokumenta. Samo čita.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2032%2032'%3E%3Crect%20width%3D'32'%20height%3D'32'%20rx%3D'8'%20fill%3D'%230a101c'%2F%3E%3Ccircle%20cx%3D'8'%20cy%3D'16'%20r%3D'4'%20fill%3D'%23f5802b'%2F%3E%3Ccircle%20cx%3D'16'%20cy%3D'16'%20r%3D'4'%20fill%3D'%23f5802b'%2F%3E%3Ccircle%20cx%3D'24'%20cy%3D'16'%20r%3D'4'%20fill%3D'%23f5802b'%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/sajt.css">
+</head>
+<body>
+<div class="napredak" aria-hidden="true"></div>
+<header class="zaglavlje"><div class="omot">
+  <a class="logo" href="index.html" aria-label="Connect Software Solutions — početna"><span class="logo-w"><b>connect</b>software</span><span class="logo-d"><i></i><i></i><i></i></span><span class="logo-s">SOLUTIONS</span></a>
+  <nav class="meni" aria-label="Glavni meni">
+    <a href="pantheon.html">PANTHEON</a>
+    <div class="pod akt"><button type="button" aria-haspopup="true">Naši proizvodi <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="pod-ploca">
+        <a href="vidik.html" style="--k:var(--vidik)"><span class="znak-p"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span><span><b>Vidik</b><small>Brojevi i kontrole iz PANTHEON-a, na telefonu</small></span></a>
+        <a href="izlog.html" style="--k:var(--izlog)"><span class="znak-p"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l2-5h14l2 5"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/></svg></span><span><b>Izlog</b><small>Online prodavnica koja se puni iz PANTHEON-a</small></span></a>
+        <a href="fioka.html" style="--k:var(--fioka)"><span class="znak-p"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><b>Fioka</b><small>Fiskalni računi sa telefona pravo u PANTHEON</small></span></a>
+      </div>
+    </div>
+    <a href="implementacija.html">Implementacija</a>
+    <a href="podrska.html">Podrška</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a class="dugme mag" href="kontakt.html">Zakažite razgovor</a>
+  </nav>
+  <button class="burger" type="button" aria-label="Meni" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></header>
+<nav class="mob-meni" aria-label="Meni na telefonu">
+  <a href="index.html">Početna</a>
+  <a href="pantheon.html">PANTHEON</a>
+  <a class="pr" href="vidik.html" style="--k:var(--vidik)">Vidik<small>Brojevi i kontrole…</small></a>
+  <a class="pr" href="izlog.html" style="--k:var(--izlog)">Izlog<small>Online prodavnica koja…</small></a>
+  <a class="pr" href="fioka.html" style="--k:var(--fioka)">Fioka<small>Fiskalni računi sa…</small></a>
+  <a href="implementacija.html">Implementacija</a>
+  <a href="podrska.html">Podrška</a>
+  <a href="kontakt.html">Kontakt</a>
+</nav>
+<main>
+<section class="p-hero" style="--k:var(--vidik)">
+  <div class="omot">
+    <div>
+      <div class="nadnaslov" data-r>Proizvod Connect Software-a · Vidik</div>
+      <h1 data-split>Vaš ERP već zna odgovor. <em>Samo vam ga ne kaže.</em></h1>
+      <p class="uvod" data-r style="margin-top:26px">Podaci o naplati, marži, zalihama i PDV-u već postoje u vašoj bazi. Do njih se stiže kroz stablo izveštaja, filtere i štampač. Vidik ih iznosi na jedan ekran — i sam javlja kada nešto ne štima.</p>
+      <div class="dugmad" data-r>
+        <a class="dugme mag" href="https://vidik.sajtpro.rs/prijava.html?demo" target="_blank" rel="noopener">Otvorite demo <span class="str">→</span></a>
+        <a class="dugme obris mag" href="kontakt.html?upit=Vidik">Zakažite prikaz</a>
+      </div>
+      <p class="siv" data-r style="margin-top:22px;font-size:14px">Baza ostaje kod vas · bez otvaranja portova · svaki upit stoji u dnevniku</p>
+    </div>
+    <div data-r="desno" style="position:relative">
+      <div class="sjaj" aria-hidden="true" style="--k:var(--vidik)"></div>
+      <div class="uredjaj" data-nagib><div class="uredjaj-unutra"><div class="mk" data-mk style="--k:var(--vidik)">
+  <div class="mk-traka"><i></i><i></i><i></i><b>vidik · pregled</b><span class="mk-sk">● uživo</span></div>
+  <div class="mk-telo" style="grid-template-rows:auto 1fr auto">
+    <div class="mk-kpi">
+      <div><small>Promet 12m</small><b>40,8 mil</b><em class="dole">▼ 30,0%</em></div>
+      <div><small>Dospelo</small><b>135,9 mil</b><em class="siv">99% potraživanja</em></div>
+      <div><small>Marža</small><b>54,2%</b><em class="gore">▲ 1,7 p.p.</em></div>
+    </div>
+    <div class="mk-red">
+      <div class="mk-kartica"><small>Promet po mesecima</small>
+        <svg class="mk-graf" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="gr-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4673d" stop-opacity=".45"/><stop offset="1" stop-color="#d4673d" stop-opacity="0"/></linearGradient></defs>
+          <g class="mreza"><line x1="0" y1="30" x2="300" y2="30"/><line x1="0" y1="60" x2="300" y2="60"/><line x1="0" y1="90" x2="300" y2="90"/></g>
+          <path class="pov" d="M0,86 C20,78 34,92 54,74 S88,44 110,54 S148,70 168,46 S206,30 228,40 S268,24 300,16 L300,120 L0,120 Z"/><path class="lin" d="M0,86 C20,78 34,92 54,74 S88,44 110,54 S148,70 168,46 S206,30 228,40 S268,24 300,16"/>
+        </svg>
+      </div>
+      <div class="mk-kartica"><small>Starost duga</small>
+        <div class="mk-stubici"><span style="--h:38%;--i:0;--c:#5fcf9f"></span><span style="--h:56%;--i:1;--c:#e8c25a"></span><span style="--h:30%;--i:2;--c:#f0a05a"></span><span style="--h:92%;--i:3;--c:#ff7a5c"></span></div>
+      </div>
+    </div>
+    <div class="mk-uzbuna"><i></i><span><b>POPDV je stariji 28 dana.</b> 10 dokumenata ne ulazi u oba obračuna.</span></div>
+  </div>
+</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="omot" aria-label="Brojevi" style="padding-top:70px">
+  <div class="brojke" data-grupa>
+    <div data-r><b>8<sup>s</sup></b><span>do odgovora na pitanje koje je juče trajalo pola sata</span></div>
+    <div data-r><b>16/18</b><span>perioda u kojima se knjiga računa i POPDV ne slažu — u demo bazi</span></div>
+    <div data-r><b>0</b><span>portova otvorenih ka vašoj mreži; veza ide samo napolje</span></div>
+    <div data-r><b>0</b><span>vaših redova sačuvanih kod nas — prolaze do pregledača i nestaju</span></div>
+  </div>
+</section>
+
+<section class="odeljak p-vrednosti" style="--kp:var(--vidik)">
+  <div class="omot">
+    <div class="zaglavlje-odeljka">
+      <div class="nadnaslov" data-r>Zašto ovo postoji</div>
+      <h2 data-split>Izveštaj postoji. <em>Samo ga niko ne gleda.</em></h2>
+      <p class="uvod" data-r>ERP je napravljen da se u njega unosi i da se iz njega štampa. Kad direktor hoće da vidi ko duguje, put je uvek isti — pet minuta po pitanju. Pa se pitanje ne postavi.</p>
+    </div>
+    <div class="mreza-kartica" data-grupa>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Odgovor košta previše</h3><p>Dok se izveštaj nađe i podesi, pitanje je već zastarelo. Ljudi prestanu da pitaju, pa se odluke donose po osećaju.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Greška se traži u Excelu</h3><p>Kad se dva ispisa ne slažu, oba se izvezu u Excel i redovi se upoređuju ručno. Nađe se šta fali, ali ne i zašto.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/><path d="M16 4.5a3.5 3.5 0 010 7M22 20c0-3-2-5.2-5-5.8"/></svg></div><h3>Sve staje na jednom čoveku</h3><p>Onaj ko zna gde se šta nalazi postaje usko grlo. Kad je na godišnjem, firma ne vidi ništa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="odeljak tamno">
+  <div class="omot">
+    <div class="zaglavlje-odeljka">
+      <div class="nadnaslov" data-r style="color:var(--vidik)">Konkretno</div>
+      <h2 data-split>„Zašto mi se knjiga računa i POPDV <em style="color:var(--vidik)">ne slažu?</em>"</h2>
+    </div>
+    <div class="dvokol">
+      <div data-r="levo">
+        <p class="nadnaslov" style="color:var(--siv-svetao)">Dosadašnji put · ~40 minuta</p>
+        <ol class="lista-o" style="opacity:.6">
+          <li><b>Otvori PDV obračun</b><span>Odštampaj knjigu računa u Excel.</span></li>
+          <li><b>Otvori POPDV pregled</b><span>Odštampaj i njega.</span></li>
+          <li><b>Poređaj oba po broju dokumenta</b><span>I traži redove kojih ima u jednom a nema u drugom.</span></li>
+          <li><b>Nađeš deset dokumenata</b><span>I dalje ne znaš zašto ispadaju.</span></li>
+        </ol>
+      </div>
+      <div data-r="desno">
+        <p class="nadnaslov" style="color:var(--vidik)">Sa Vidikom · 8 sekundi</p>
+        <ol class="lista-o">
+          <li><b>Kartica Kontrola PDV, izabereš mesec</b><span>Bez štampanja, bez Excela.</span></li>
+          <li><b>Ekran kaže: POPDV je stariji 28 dana</b><span>Rečenica na vrhu, ne tabela.</span></li>
+          <li><b>Spisak sa razlogom i iznosom</b><span>I šta da uradiš: ponovi obračun POPDV.</span></li>
+          <li><b>Klik na dokument</b><span>Otvara sve o njemu.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="odeljak">
+  <div class="omot tok-blok">
+    <div>
+      <div class="nadnaslov" data-r>Ono što ERP nema</div>
+      <h2 data-split>Kontrole koje <em>same traže</em> grešku.</h2>
+      <p class="uvod" data-r style="margin-top:22px">Vidik ne prepisuje izveštaje koje već imate. Poredi dva obračuna međusobno i sa stvarnim dokumentima, pa kaže gde se razilaze — i, što je važnije, zbog čega.</p>
+      <ul class="tacke-lista" data-grupa style="--k:var(--vidik)">
+        <li data-r><span><b>Knjiga računa naspram POPDV-a</b>, dokument po dokument</span></li>
+        <li data-r><span><b>Konta sa prometom</b> koja ne ulaze ni u jedan bilansni obrazac</span></li>
+        <li data-r><span><b>Nalozi koji nisu u ravnoteži</b> i zaključna knjiženja</span></li>
+        <li data-r><span><b>Zalihe u minusu</b> i artikli ispod minimuma</span></li>
+      </ul>
+    </div>
+    <div class="tok-ploca" data-r="desno" data-mk data-ponovi="8000" style="--k:var(--vidik)">
+      <div class="naslov">kontrola pdv · 2023-12</div>
+      <div class="mk-tok">
+        <div style="--i:0"><span>knjiga računa</span><span>250 dok.</span></div>
+        <div style="--i:1"><span>POPDV</span><span>270 dok. · stariji</span></div>
+        <div style="--i:2"><span>23-1200-000418</span><span>34.200,00</span></div>
+        <div style="--i:3"><span>23-1200-000415</span><span>−12.360,00</span></div>
+        <div style="--i:4"><span>23-1201-000206</span><span>840,00</span></div>
+        <div style="--i:5" class="kraj"><span>razlog: unet posle obračuna</span><span>10 dok.</span></div>
+      </div>
+      <div class="dno">Šta uraditi: ponovi obračun POPDV.</div>
+    </div>
+  </div>
+</section>
+
+<section class="odeljak tamno" style="--k:var(--vidik)">
+  <div class="omot">
+    <div class="zaglavlje-odeljka">
+      <div class="nadnaslov" data-r style="color:var(--vidik)">Šta dobijate</div>
+      <h2 data-split>Ekrani za ono što se <em style="color:var(--vidik)">pita svaki dan.</em></h2>
+    </div>
+    <div class="mreza-kartica" data-grupa>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div><h3>Pregled</h3><p>Projekcija priliva i odliva po dospeću, starost duga i promet — na jednom ekranu, čim se otvori.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><h3>Novac</h3><p>Ko duguje i koliko dugo, šta se plaća ove nedelje, prihodi naspram troškova po godinama.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div><h3>Zalihe</h3><p>Negativna stanja koja odaju grešku u knjiženju, artikli ispod minimuma i roba koja stoji.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/><path d="M16 4.5a3.5 3.5 0 010 7M22 20c0-3-2-5.2-5-5.8"/></svg></div><h3>Rizik i prilike</h3><p>Kupci koji su prestali da kupuju, i oni koji duguju a odavno ništa nisu uzeli.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Blokada računa</h3><p>Kupac koji kasni je jedno; isti kupac sa računom u blokadi 54 dana je sasvim drugo. Vidik to proverava kod NBS-a.</p></div>
+      <div class="kartica" data-r><div class="ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg></div><h3>Ispisi po meri</h3><p>Ispis je izbor kolona i filtera. Korisnik ga sam sklopi, sačuva i podeli — bez programera.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="odeljak">
+  <div class="omot">
+    <div class="zaglavlje-odeljka centar">
+      <div class="nadnaslov" data-r>Pitanja</div>
+      <h2 data-split>Ono što IT i računovodstvo <em>pitaju prvo.</em></h2>
+    </div>
+    <div class="pitanja">
+      <details><summary>Da li nešto upisujete u našu bazu?</summary><div class="odg"><p>Vidik — ništa. On je čist čitač, pa preporučujemo nalog db_datareader, da to ne bude naše obećanje nego pravilo koje sprovodi vaš SQL Server. Upisuju samo Izlog (narudžbina kupca) i Fioka (račun troška), i to tek kad ih u panelu konektora sami uključite.</p></div></details>
+      <details><summary>Idu li naši podaci kroz vaš server?</summary><div class="odg"><p>Kad otvorite ekran, red koji vidite putuje iz vaše baze do vašeg pregledača — drugačije se sa telefona ne vidi ništa. Ali se ništa ne čuva: nema kopije baze, nema noćnog prepisivanja. Kad zatvorite ekran, ne ostaje nijedan red.</p></div></details>
+      <details><summary>Da li usporava bazu?</summary><div class="odg"><p>Konektor drži najviše dve konekcije i zatvara ih posle deset minuta mirovanja. Opterećenje je manje nego kad jedan korisnik otvori veći ispis u samom PANTHEON-u.</p></div></details>
+      <details><summary>Imamo više firmi u jednoj bazi. Radi li to?</summary><div class="odg"><p>Radi — jedan konektor vidi sve PANTHEON baze na instanci, a vi štiklirate koje delite. Knjigovodstvenim agencijama je to i osnovni način rada.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="odeljak" style="padding-top:0">
+  <div class="omot">
+    <div class="nadnaslov" data-r>Isti konektor nosi i</div>
+    <div class="drugi-proizvodi" data-grupa>
+      <a class="drugi" data-r href="izlog.html" style="--k:var(--izlog)"><span class="znak-p"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l2-5h14l2 5"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/></svg></span><span><b>Izlog</b><span>Online prodavnica iz PANTHEON-a</span></span><span class="str">→</span></a>
+      <a class="drugi" data-r href="fioka.html" style="--k:var(--fioka)"><span class="znak-p"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><b>Fioka</b><span>Računi sa telefona u PANTHEON</span></span><span class="str">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="poziv tamno">
+  <div class="omot">
+    <div class="nadnaslov" data-r style="color:var(--vidik)">Sledeći korak</div>
+    <h2 data-split>Pustite ga na <em style="color:var(--vidik)">svoju</em> bazu.</h2>
+    <p class="uvod centar" data-r style="margin-top:24px">Prikaz traje dvadeset minuta i radi se na vašim podacima, ne na demou. Ako ništa ne nađe, rekli smo vam da je sve u redu — i to je nešto.</p>
+    <div class="dugmad" data-r>
+      <a class="dugme mag" href="kontakt.html?upit=Vidik" style="--b:var(--vidik)">Zakažite prikaz <span class="str">→</span></a>
+      <a class="dugme obris mag" href="https://vidik.sajtpro.rs/prijava.html?demo" target="_blank" rel="noopener">Otvorite demo</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="podnozje"><div class="omot">
+  <div class="podnozje-gore">
+    <div>
+      <a class="logo" href="index.html" aria-label="Connect Software Solutions — početna"><span class="logo-w"><b>connect</b>software</span><span class="logo-d"><i></i><i></i><i></i></span><span class="logo-s">SOLUTIONS</span></a>
+      <p>Premium partner za PANTHEON™ ERP više od 15 godina. Implementacija, podrška, razvoj — i sopstveni proizvodi nad PANTHEON-om.</p>
+      <div class="drustvene"><a href="https://www.facebook.com/ConnectSoftware" target="_blank" rel="noopener" aria-label="facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M14 8h3V4h-3a4 4 0 00-4 4v3H7v4h3v7h4v-7h3l1-4h-4V8.5a.5.5 0 01.5-.5z"/></svg></a><a href="https://www.linkedin.com/company/connect-software-solutions-novi-sad/" target="_blank" rel="noopener" aria-label="linkedin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="9" width="4" height="12"/><circle cx="5" cy="5" r="2"/><path d="M10 9h4v2c.6-1.2 2-2.2 4-2.2 3 0 4 2 4 5.2V21h-4v-6.5c0-1.6-.6-2.5-2-2.5s-2 1-2 2.5V21h-4z"/></svg></a><a href="https://www.instagram.com/connectsoftware_/" target="_blank" rel="noopener" aria-label="instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a></div>
+    </div>
+    <div><h4>PANTHEON</h4><ul>
+      <li><a href="pantheon.html">Rešenja po delatnosti</a></li>
+      <li><a href="pantheon.html#verzije">Verzije</a></li>
+      <li><a href="implementacija.html">Implementacija</a></li>
+      <li><a href="podrska.html">Podrška</a></li>
+    </ul></div>
+    <div><h4>Naši proizvodi</h4><ul>
+      <li><a href="vidik.html">Vidik</a></li>
+      <li><a href="izlog.html">Izlog</a></li>
+      <li><a href="fioka.html">Fioka</a></li>
+    </ul></div>
+    <div><h4>Kontakt</h4><ul>
+      <li><a href="https://maps.google.com/?q=Futo%C5%A1ka+35,+Novi+Sad" target="_blank" rel="noopener">Futoška 35, 21000 Novi Sad</a></li>
+      <li><a href="tel:+381216620000">+381 21 662 0000</a></li>
+      <li><a href="mailto:office@connectsoftware.rs">office@connectsoftware.rs</a></li>
+    </ul></div>
+  </div>
+  <div class="veliki-znak" aria-hidden="true">connect software</div>
+  <div class="podnozje-dole">
+    <span>© 2026 Connect Software Solutions. PANTHEON™ je zaštićeni znak svog vlasnika.</span>
+    <span class="jezici"><a href="https://connectsoftware.biz" hreflang="en">EN</a><a href="https://hu.connectsoftware.rs/" hreflang="hu">HU</a><a href="https://css-pantheon.hr/" hreflang="hr">HR</a></span>
+  </div>
+</div></footer>
+<script src="js/sajt.js" defer></script>
+</body>
+</html>

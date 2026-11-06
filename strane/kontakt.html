@@ -1,0 +1,60 @@
+<!--META {"naslov": "Kontakt — Connect Software Solutions, Novi Sad", "opis": "Futoška 35, Novi Sad · +381 21 662 0000 · office@connectsoftware.rs. Upit za PANTHEON, implementaciju, podršku, Vidik, Izlog ili Fioku.", "meni": "kontakt.html"} -->
+<section class="s-hero" style="padding-bottom:60px">
+  <div class="omot">
+    <div class="nadnaslov" data-r>Kontakt</div>
+    <h1 data-split>Hajde da <em>pričamo.</em></h1>
+    <p class="uvod" data-r style="margin-top:26px">Popunite upit i javićemo se u najkraćem roku. Ili nas pozovite — radije pričamo nego što pišemo.</p>
+  </div>
+</section>
+
+<section class="odeljak" style="padding-top:80px">
+  <div class="omot kontakt-mreza">
+    <div data-r="levo">
+      <div class="kontakt-podaci">
+        <a href="tel:{{telHref}}"><span class="ik">{{ik:telefon}}</span><span><small>Telefon</small><b>{{tel}}</b></span></a>
+        <a href="mailto:{{mejl}}"><span class="ik">{{ik:mejl}}</span><span><small>E-pošta</small><b>{{mejl}}</b></span></a>
+        <a href="{{mapa}}" target="_blank" rel="noopener"><span class="ik">{{ik:igla}}</span><span><small>Adresa</small><b>{{adresa}}</b></span></a>
+      </div>
+      <div class="mapa" aria-label="Mapa: Futoška 35, Novi Sad">
+        <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="250" fill="#101a2b"/>
+          <path d="M-10 180 C80 150 150 200 230 160 S350 90 420 110" stroke="#1d3a55" stroke-width="22" fill="none"/>
+          <g stroke="#22314a" stroke-width="6" fill="none">
+            <path d="M0 60 L400 100"/><path d="M0 130 L400 120"/><path d="M60 0 L90 250"/><path d="M150 0 L170 250"/><path d="M250 0 L240 250"/><path d="M330 0 L350 250"/>
+          </g>
+          <path d="M0 95 L400 112" stroke="#f5802b" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round" fill="none" opacity=".7"/>
+          <text x="20" y="88" fill="#6c7a92" font-family="Manrope, sans-serif" font-size="11" font-weight="700" letter-spacing="2">FUTOŠKA</text>
+          <text x="300" y="200" fill="#3d5a78" font-family="Manrope, sans-serif" font-size="11" font-weight="700" letter-spacing="2">DUNAV</text>
+        </svg>
+        <span class="igla">{{ik:igla}}</span>
+        <a href="{{mapa}}" target="_blank" rel="noopener">Otvori u mapama →</a>
+      </div>
+    </div>
+    <form class="forma" id="forma" data-r="desno">
+      <div class="nadnaslov" style="margin:0">Vrsta upita</div>
+      <div class="vrste-upita">
+        <label><input type="radio" name="vrsta" value="PANTHEON" checked><span>PANTHEON</span></label>
+        <label><input type="radio" name="vrsta" value="PANTHEON SE"><span>SE</span></label>
+        <label><input type="radio" name="vrsta" value="PANTHEON LT"><span>LT</span></label>
+        <label><input type="radio" name="vrsta" value="PANTHEON LX"><span>LX</span></label>
+        <label><input type="radio" name="vrsta" value="PANTHEON Hybrid"><span>Hybrid</span></label>
+        <label><input type="radio" name="vrsta" value="Implementacija"><span>Implementacija</span></label>
+        <label><input type="radio" name="vrsta" value="Podrška"><span>Podrška</span></label>
+        <label><input type="radio" name="vrsta" value="Vidik"><span>Vidik</span></label>
+        <label><input type="radio" name="vrsta" value="Izlog"><span>Izlog</span></label>
+        <label><input type="radio" name="vrsta" value="Fioka"><span>Fioka</span></label>
+      </div>
+      <div class="dva">
+        <div class="polje"><input id="f-ime" name="ime" required placeholder=" " autocomplete="name"><label for="f-ime">Ime i prezime</label></div>
+        <div class="polje"><input id="f-firma" name="firma" required placeholder=" " autocomplete="organization"><label for="f-firma">Kompanija</label></div>
+      </div>
+      <div class="dva">
+        <div class="polje"><input id="f-mejl" name="mejl" type="email" required placeholder=" " autocomplete="email"><label for="f-mejl">E-pošta</label></div>
+        <div class="polje"><input id="f-tel" name="tel" type="tel" required placeholder=" " autocomplete="tel"><label for="f-tel">Telefon</label></div>
+      </div>
+      <div class="polje"><textarea id="f-poruka" name="poruka" placeholder=" "></textarea><label for="f-poruka">Poruka (nije obavezno)</label></div>
+      <div><button class="dugme mag" type="submit">Pošaljite upit <span class="str">→</span></button></div>
+      <p class="napomena">Otvoriće se vaš program za poštu sa popunjenim upitom.</p>
+    </form>
+  </div>
+</section>
