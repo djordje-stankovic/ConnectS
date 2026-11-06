@@ -563,7 +563,8 @@ body.meni-otvoren .mob-meni a { opacity: 1; transform: none; transition-delay: c
 .drustvene a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--linija-tamna); transition: all .3s; }
 .drustvene a:hover { background: var(--narandza); border-color: var(--narandza); color: #fff; transform: translateY(-3px); }
 .drustvene svg { width: 17px; height: 17px; }
-.veliki-znak { font: 700 clamp(48px, 12vw, 190px)/.9 var(--serif); color: #fff; letter-spacing: -.03em; margin: 70px 0 30px; white-space: nowrap; opacity: .07; user-select: none; }
+.veliki-znak { display: block; width: 100%; height: auto; margin: 70px 0 30px; opacity: .07; user-select: none; overflow: visible; }
+.veliki-znak text { font: 700 120px var(--serif); letter-spacing: -.03em; fill: #fff; }
 .podnozje-dole { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding-top: 26px; border-top: 1px solid var(--linija-tamna); font-size: 13.5px; }
 .jezici { display: flex; gap: 14px; }
 
