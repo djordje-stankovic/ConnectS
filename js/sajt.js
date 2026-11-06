@@ -589,3 +589,51 @@
 
   naSkrol();
 })();
+
+/* ---------- implementacija: tabla prati tačku na ekranu i broji štiklirane ---------- */
+(function () {
+  'use strict';
+  var tabla = document.querySelector('.tabla');
+  if (!tabla) return;
+  var faktori = Array.prototype.slice.call(document.querySelectorAll('.faktor'));
+  var red = tabla.querySelector('.tabla-br-red'), naslov = tabla.querySelector('.tabla-naslov');
+  var prov = tabla.querySelector('.tabla-prov'), tok = tabla.querySelector('.pr-tok'), traka = tabla.querySelector('.tabla-traka');
+  var akt = 0, OBIM = 326.7, tajmer;
+  function postavi(i) {
+    if (i === akt || i < 0) return;
+    akt = i;
+    faktori.forEach(function (f, j) { f.classList.toggle('akt', j === i); });
+    traka.style.setProperty('--p', (i + 1) / faktori.length);
+    clearTimeout(tajmer);
+    red.classList.add('ide');
+    tajmer = setTimeout(function () {
+      red.textContent = String(i + 1).padStart(2, '0');
+      naslov.textContent = faktori[i].getAttribute('data-naslov');
+      red.classList.remove('ide'); red.classList.add('dolazi');
+      void red.offsetWidth; red.classList.remove('dolazi');
+    }, 200);
+  }
+  var io = new IntersectionObserver(function (st) {
+    st.forEach(function (s) { if (s.isIntersecting) postavi(faktori.indexOf(s.target)); });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  faktori.forEach(function (f) { io.observe(f); });
+
+  function brojanje() {
+    var n = faktori.filter(function (f) { return f.classList.contains('ok'); }).length;
+    prov.textContent = n;
+    tok.style.strokeDashoffset = OBIM * (1 - n / faktori.length);
+    tabla.classList.toggle('sve', n === faktori.length);
+  }
+  faktori.forEach(function (f) {
+    var b = f.querySelector('.f-dugme');
+    b.addEventListener('click', function () {
+      var da = b.getAttribute('aria-pressed') !== 'true';
+      b.setAttribute('aria-pressed', String(da));
+      b.textContent = da ? 'Provereno ✓' : 'Provereno';
+      f.classList.toggle('ok', da);
+      brojanje();
+    });
+  });
+  faktori[0].classList.add('akt');
+  traka.style.setProperty('--p', 1 / faktori.length);
+})();
