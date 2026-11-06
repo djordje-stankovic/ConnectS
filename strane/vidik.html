@@ -34,10 +34,10 @@
       <h2 data-split>Izveštaj postoji. <em>Samo ga niko ne gleda.</em></h2>
       <p class="uvod" data-r>ERP je napravljen da se u njega unosi i da se iz njega štampa. Kad direktor hoće da vidi ko duguje, put je uvek isti — pet minuta po pitanju. Pa se pitanje ne postavi.</p>
     </div>
-    <div class="mreza-kartica" data-grupa>
-      <div class="kartica" data-r><div class="ik">{{ik:sat}}</div><h3>Odgovor košta previše</h3><p>Dok se izveštaj nađe i podesi, pitanje je već zastarelo. Ljudi prestanu da pitaju, pa se odluke donose po osećaju.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:oko}}</div><h3>Greška se traži u Excelu</h3><p>Kad se dva ispisa ne slažu, oba se izvezu u Excel i redovi se upoređuju ručno. Nađe se šta fali, ali ne i zašto.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:ljudi}}</div><h3>Sve staje na jednom čoveku</h3><p>Onaj ko zna gde se šta nalazi postaje usko grlo. Kad je na godišnjem, firma ne vidi ništa.</p></div>
+    <div class="slagalica" style="--k:var(--vidik)">
+      <article class="sl-karta "><div class="sl-br">01</div><div><h3>Odgovor košta previše</h3><p>Dok se izveštaj nađe i podesi, pitanje je već zastarelo. Ljudi prestanu da pitaju, pa se odluke donose po osećaju.</p></div><div class="sl-ik">{{ik:sat}}</div></article>
+      <article class="sl-karta o"><div class="sl-br">02</div><div><h3>Greška se traži u Excelu</h3><p>Kad se dva ispisa ne slažu, oba se izvezu u Excel i redovi se upoređuju ručno. Nađe se šta fali, ali ne i zašto.</p></div><div class="sl-ik">{{ik:oko}}</div></article>
+      <article class="sl-karta p"><div class="sl-br">03</div><div><h3>Sve staje na jednom čoveku</h3><p>Onaj ko zna gde se šta nalazi postaje usko grlo. Kad je na godišnjem, firma ne vidi ništa.</p></div><div class="sl-ik">{{ik:ljudi}}</div></article>
     </div>
   </div>
 </section>
@@ -46,7 +46,7 @@
   <div class="omot">
     <div class="zaglavlje-odeljka">
       <div class="nadnaslov" data-r style="color:var(--vidik)">Konkretno</div>
-      <h2 data-split>„Zašto mi se knjiga računa i POPDV <em style="color:var(--vidik)">ne slažu?</em>"</h2>
+      <h2 data-split>„Zašto mi se knjiga računa i POPDV <em style="--em:var(--vidik)">ne slažu?</em>"</h2>
     </div>
     <div class="dvokol">
       <div data-r="levo">
@@ -103,15 +103,15 @@
   <div class="omot">
     <div class="zaglavlje-odeljka">
       <div class="nadnaslov" data-r style="color:var(--vidik)">Šta dobijate</div>
-      <h2 data-split>Ekrani za ono što se <em style="color:var(--vidik)">pita svaki dan.</em></h2>
+      <h2 data-split>Ekrani za ono što se <em style="--em:var(--vidik)">pita svaki dan.</em></h2>
     </div>
-    <div class="mreza-kartica" data-grupa>
-      <div class="kartica" data-r><div class="ik">{{ik:graf}}</div><h3>Pregled</h3><p>Projekcija priliva i odliva po dospeću, starost duga i promet — na jednom ekranu, čim se otvori.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:vidik}}</div><h3>Novac</h3><p>Ko duguje i koliko dugo, šta se plaća ove nedelje, prihodi naspram troškova po godinama.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:veleprodaja}}</div><h3>Zalihe</h3><p>Negativna stanja koja odaju grešku u knjiženju, artikli ispod minimuma i roba koja stoji.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:ljudi}}</div><h3>Rizik i prilike</h3><p>Kupci koji su prestali da kupuju, i oni koji duguju a odavno ništa nisu uzeli.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:stit}}</div><h3>Blokada računa</h3><p>Kupac koji kasni je jedno; isti kupac sa računom u blokadi 54 dana je sasvim drugo. Vidik to proverava kod NBS-a.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:alat}}</div><h3>Ispisi po meri</h3><p>Ispis je izbor kolona i filtera. Korisnik ga sam sklopi, sačuva i podeli — bez programera.</p></div>
+    <div class="redovi" data-grupa style="--k:var(--vidik)">
+      <div class="red" data-r tabindex="0"><span class="red-br">01</span><span class="red-nas">Pregled</span><span class="red-opis">Projekcija priliva i odliva po dospeću, starost duga i promet — na jednom ekranu, čim se otvori.</span><span class="red-ik">{{ik:graf}}</span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">02</span><span class="red-nas">Novac</span><span class="red-opis">Ko duguje i koliko dugo, šta se plaća ove nedelje, prihodi naspram troškova po godinama.</span><span class="red-ik">{{ik:vidik}}</span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">03</span><span class="red-nas">Zalihe</span><span class="red-opis">Negativna stanja koja odaju grešku u knjiženju, artikli ispod minimuma i roba koja stoji.</span><span class="red-ik">{{ik:veleprodaja}}</span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">04</span><span class="red-nas">Rizik i prilike</span><span class="red-opis">Kupci koji su prestali da kupuju, i oni koji duguju a odavno ništa nisu uzeli.</span><span class="red-ik">{{ik:ljudi}}</span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">05</span><span class="red-nas">Blokada računa</span><span class="red-opis">Kupac koji kasni je jedno; isti kupac sa računom u blokadi 54 dana je sasvim drugo. Vidik to proverava kod NBS-a.</span><span class="red-ik">{{ik:stit}}</span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">06</span><span class="red-nas">Ispisi po meri</span><span class="red-opis">Ispis je izbor kolona i filtera. Korisnik ga sam sklopi, sačuva i podeli — bez programera.</span><span class="red-ik">{{ik:alat}}</span></div>
     </div>
   </div>
 </section>
@@ -144,7 +144,7 @@
 <section class="poziv tamno">
   <div class="omot">
     <div class="nadnaslov" data-r style="color:var(--vidik)">Sledeći korak</div>
-    <h2 data-split>Pustite ga na <em style="color:var(--vidik)">svoju</em> bazu.</h2>
+    <h2 data-split>Pustite ga na <em style="--em:var(--vidik)">svoju</em> bazu.</h2>
     <p class="uvod centar" data-r style="margin-top:24px">Prikaz traje dvadeset minuta i radi se na vašim podacima, ne na demou. Ako ništa ne nađe, rekli smo vam da je sve u redu — i to je nešto.</p>
     <div class="dugmad" data-r>
       <a class="dugme mag" href="kontakt.html?upit=Vidik" style="--b:var(--vidik)">Zakažite prikaz <span class="str">→</span></a>

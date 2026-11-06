@@ -19,10 +19,10 @@
 
 <section class="odeljak p-vrednosti" style="--kp:var(--izlog)">
   <div class="omot">
-    <div class="mreza-kartica" data-grupa>
-      <div class="kartica" data-r><div class="ik">{{ik:izlog}}</div><h3>Katalog se ne unosi</h3><p>Šta je u šifarniku označeno „Web prodavnica", to je na sajtu — sa slikom iz PANTHEON-a, cenom sa PDV-om i zalihom sa skladišta koja izaberete. Promenite cenu i sajt je ima za minut.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:baza}}</div><h3>Narudžbina ide u PANTHEON</h3><p>Kao narudžbina kupca, kroz PANTHEON-ove procedure. Radnik je pretvara u račun ili maloprodaju kako je navikao — fiskalizacija i e-faktura ostaju u PANTHEON-u.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:veza}}</div><h3>Isti konektor kao Vidik</h3><p>Imate Vidik? Nalepite isti ključ i prodavnica radi — bez nove instalacije i bez druge konektor licence.</p></div>
+    <div class="slagalica" style="--k:var(--izlog)">
+      <article class="sl-karta "><div class="sl-br">01</div><div><h3>Katalog se ne unosi</h3><p>Šta je u šifarniku označeno „Web prodavnica", to je na sajtu — sa slikom iz PANTHEON-a, cenom sa PDV-om i zalihom sa skladišta koja izaberete. Promenite cenu i sajt je ima za minut.</p></div><div class="sl-ik">{{ik:izlog}}</div></article>
+      <article class="sl-karta o"><div class="sl-br">02</div><div><h3>Narudžbina ide u PANTHEON</h3><p>Kao narudžbina kupca, kroz PANTHEON-ove procedure. Radnik je pretvara u račun ili maloprodaju kako je navikao — fiskalizacija i e-faktura ostaju u PANTHEON-u.</p></div><div class="sl-ik">{{ik:baza}}</div></article>
+      <article class="sl-karta p"><div class="sl-br">03</div><div><h3>Isti konektor kao Vidik</h3><p>Imate Vidik? Nalepite isti ključ i prodavnica radi — bez nove instalacije i bez druge konektor licence.</p></div><div class="sl-ik">{{ik:veza}}</div></article>
     </div>
   </div>
 </section>
@@ -31,7 +31,7 @@
   <div class="omot">
     <div class="zaglavlje-odeljka">
       <div class="nadnaslov" data-r style="color:var(--izlog)">Napravite je sami</div>
-      <h2 data-split>Od preuzimanja do <em style="color:var(--izlog)">prve narudžbine.</em></h2>
+      <h2 data-split>Od preuzimanja do <em style="--em:var(--izlog)">prve narudžbine.</em></h2>
       <p class="uvod" data-r>Ekran vam na svakom koraku kaže šta fali. Ako ipak zapne — tu smo.</p>
     </div>
     <div class="put" style="--k:var(--izlog)">
@@ -50,13 +50,13 @@
       <h2 data-split>Pet tema, različitih po <em>načinu kupovine.</em></h2>
       <p class="uvod" data-r>Ne samo druga boja — drugi raspored. Boja firme se sama uzme iz logotipa u PANTHEON-u.</p>
     </div>
-    <div class="mreza-kartica" data-grupa style="--k:var(--izlog)">
-      <div class="kartica" data-r><span class="br">01</span><h3>Vitrina</h3><p>Opšta prodaja. Istaknuti proizvodi na vrhu, kategorije kao pločice sa slikom, brzo dodavanje.</p></div>
-      <div class="kartica" data-r><span class="br">02</span><h3>Katalog</h3><p>Delovi, tehnika, veliki asortiman. Spisak sa šifrom, stanjem i cenom; radi i bez ijedne slike.</p></div>
-      <div class="kartica" data-r><span class="br">03</span><h3>Butik</h3><p>Kozmetika, moda, pokloni. Krupne fotografije, klasičan serif, puno vazduha.</p></div>
-      <div class="kartica" data-r><span class="br">04</span><h3>Pijaca</h3><p>Pekara, hrana, piće. „Dodaj" na svakoj kartici i korpa kao traka na dnu — kao aplikacije za dostavu.</p></div>
-      <div class="kartica" data-r><span class="br">05</span><h3>Klasik</h3><p>Ozbiljna firma, oprezni kupci. Adresa i PIB na vrhu, meni u boji firme, krupnije slovo.</p></div>
-      <div class="kartica" data-r><span class="br">+</span><h3>Po meri</h3><p>Nijedna ne odgovara? Napravićemo izgled vaše firme — nad istim katalogom i istim narudžbinama.</p></div>
+    <div class="redovi" data-grupa style="--k:var(--izlog)">
+      <div class="red" data-r tabindex="0"><span class="red-br">01</span><span class="red-nas">Vitrina</span><span class="red-opis">Opšta prodaja. Istaknuti proizvodi na vrhu, kategorije kao pločice sa slikom, brzo dodavanje.</span><span class="red-ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">02</span><span class="red-nas">Katalog</span><span class="red-opis">Delovi, tehnika, veliki asortiman. Spisak sa šifrom, stanjem i cenom; radi i bez ijedne slike.</span><span class="red-ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">03</span><span class="red-nas">Butik</span><span class="red-opis">Kozmetika, moda, pokloni. Krupne fotografije, klasičan serif, puno vazduha.</span><span class="red-ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">04</span><span class="red-nas">Pijaca</span><span class="red-opis">Pekara, hrana, piće. „Dodaj" na svakoj kartici i korpa kao traka na dnu — kao aplikacije za dostavu.</span><span class="red-ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">05</span><span class="red-nas">Klasik</span><span class="red-opis">Ozbiljna firma, oprezni kupci. Adresa i PIB na vrhu, meni u boji firme, krupnije slovo.</span><span class="red-ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="red" data-r tabindex="0"><span class="red-br">+</span><span class="red-nas">Po meri</span><span class="red-opis">Nijedna ne odgovara? Napravićemo izgled vaše firme — nad istim katalogom i istim narudžbinama.</span><span class="red-ik"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
     </div>
   </div>
 </section>
@@ -65,7 +65,7 @@
   <div class="omot tok-blok">
     <div>
       <div class="nadnaslov" data-r style="color:var(--izlog)">Kad kupac poruči</div>
-      <h2 data-split>Šta se dešava, <em style="color:var(--izlog)">redom.</em></h2>
+      <h2 data-split>Šta se dešava, <em style="--em:var(--izlog)">redom.</em></h2>
       <ul class="tacke-lista" data-grupa>
         <li data-r><span><b>Cena i PDV se uvek računaju u PANTHEON-u</b> — sajt ih nikad ne određuje</span></li>
         <li data-r><span><b>Podaci kupca</b> se upisuju u napomenu narudžbine</span></li>
@@ -116,7 +116,7 @@
 <section class="poziv tamno" style="--k:var(--izlog)">
   <div class="omot">
     <div class="nadnaslov" data-r style="color:var(--izlog)">Sledeći korak</div>
-    <h2 data-split>Pogledajte je na <em style="color:var(--izlog)">pravoj</em> bazi.</h2>
+    <h2 data-split>Pogledajte je na <em style="--em:var(--izlog)">pravoj</em> bazi.</h2>
     <p class="uvod centar" data-r style="margin-top:24px">Demo prodavnica radi nad pravom PANTHEON bazom — prava roba, slike i zalihe. Narudžbine se u demou ne šalju nikome.</p>
     <div class="dugmad" data-r>
       <a class="dugme mag" href="{{demo:izlog}}" target="_blank" rel="noopener" style="--b:var(--izlog)">Otvorite demo <span class="str">→</span></a>

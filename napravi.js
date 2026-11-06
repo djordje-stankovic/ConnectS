@@ -139,6 +139,25 @@ const MK = {
 </div>`
 };
 
+/* ---------------------------------------------------------------- zupčanici
+   Dva zupčanika istog modula, pa se zubi stvarno poklapaju; js/sajt.js ih
+   okreće sa skrolom (mali brže, u suprotnom smeru, po odnosu broja zuba). */
+function zupcanik(cx, cy, z, m, klasa) {
+  const r = m * z / 2, ro = r + m, rr = r - 1.25 * m, p = 2 * Math.PI / z;
+  const t = (a, rad) => (cx + rad * Math.cos(a)).toFixed(1) + ',' + (cy + rad * Math.sin(a)).toFixed(1);
+  let d = '';
+  for (let i = 0; i < z; i++) {
+    const a = i * p;
+    d += (i ? 'L' : 'M') + t(a, rr) + 'L' + t(a + p * .12, rr) + 'L' + t(a + p * .3, ro) + 'L' + t(a + p * .5, ro) + 'L' + t(a + p * .68, rr) + 'L' + t(a + p, rr);
+  }
+  const rupe = [];
+  for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; rupe.push(`<circle cx="${(cx + r * .52 * Math.cos(a)).toFixed(1)}" cy="${(cy + r * .52 * Math.sin(a)).toFixed(1)}" r="${(r * .14).toFixed(1)}"/>`); }
+  return `<g class="${klasa}" data-zubi="${z}" data-c="${cx},${cy}"><path d="${d}Z"/><circle cx="${cx}" cy="${cy}" r="${(r * .78).toFixed(1)}"/><circle cx="${cx}" cy="${cy}" r="${(r * .2).toFixed(1)}"/>${rupe.join('')}</g>`;
+}
+/* veliki: 24 zuba, centar (380,260); mali: 14 zuba, na rastojanju 12.5*(24+14)/2 = 237.5 */
+const ZUPCANICI = `<div class="zupcanici" aria-hidden="true"><svg viewBox="0 0 680 680">${zupcanik(400, 250, 24, 12.5, 'z-veliki')}${zupcanik(232, 418, 14, 12.5, 'z-mali')}</svg></div>`;
+const NIT = `<svg class="nit" aria-hidden="true"><defs><linearGradient id="nit-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb27a"/><stop offset="1" stop-color="#f5802b"/></linearGradient></defs><path class="nit-staza"/><path class="nit-tok"/><g class="nit-cvorovi"></g><circle class="nit-glava" r="4.5" cx="-20" cy="-20"/></svg>`;
+
 /* ---------------------------------------------------------------- delovi */
 const LOGO = `<a class="logo" href="index.html" aria-label="${FIRMA.ime} — početna"><span class="logo-w"><b>connect</b>software</span><span class="logo-d"><i></i><i></i><i></i></span><span class="logo-s">SOLUTIONS</span></a>`;
 const strelica = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>';
@@ -198,7 +217,7 @@ function podnozje() {
   </div>
   <div class="veliki-znak" aria-hidden="true">connect software</div>
   <div class="podnozje-dole">
-    <span>© ${new Date().getFullYear()} ${FIRMA.ime}. PANTHEON™ je zaštićeni znak svog vlasnika.</span>
+    <span>Copyright © 2020 ${FIRMA.ime}. All Rights Reserved.</span>
     <span class="jezici"><a href="https://connectsoftware.biz" hreflang="en">EN</a><a href="https://hu.connectsoftware.rs/" hreflang="hu">HU</a><a href="https://css-pantheon.hr/" hreflang="hr">HR</a></span>
   </div>
 </div></footer>`;
@@ -219,12 +238,14 @@ function strana(meta, telo, fajl) {
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#0a101c'/><circle cx='8' cy='16' r='4' fill='#f5802b'/><circle cx='16' cy='16' r='4' fill='#f5802b'/><circle cx='24' cy='16' r='4' fill='#f5802b'/></svg>`)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/sajt.css">
 </head>
 <body${meta.telo ? ` class="${meta.telo}"` : ''}>
 ${zaglavlje(meta.meni || fajl)}
+${ZUPCANICI}
 <main>
+${NIT}
 ${telo}
 </main>
 ${podnozje()}

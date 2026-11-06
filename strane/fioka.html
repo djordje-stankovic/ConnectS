@@ -19,10 +19,10 @@
 
 <section class="odeljak p-vrednosti" style="--kp:var(--fioka)">
   <div class="omot">
-    <div class="mreza-kartica" data-grupa>
-      <div class="kartica" data-r><div class="ik">{{ik:kamera}}</div><h3>Ništa se ne prekucava</h3><p>QR na fiskalnom računu vodi do Poreske uprave, a tamo je ceo račun. Isto što piše na papiru — samo bez greške u kucanju.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:fioka}}</div><h3>Račun troška u PANTHEON-u</h3><p>Svaka stavka posebno, PDV po stopi, na tip dokumenta i skladište koje firma već koristi. Novog dobavljača Fioka doda sama — iz APR-a.</p></div>
-      <div class="kartica" data-r><div class="ik">{{ik:ljudi}}</div><h3>Zaposleni bez lozinke</h3><p>Vlasnik pošalje link, zaposleni ga otvori na telefonu, upiše ime — i skenira. Vidi samo svoje račune.</p></div>
+    <div class="slagalica" style="--k:var(--fioka)">
+      <article class="sl-karta "><div class="sl-br">01</div><div><h3>Ništa se ne prekucava</h3><p>QR na fiskalnom računu vodi do Poreske uprave, a tamo je ceo račun. Isto što piše na papiru — samo bez greške u kucanju.</p></div><div class="sl-ik">{{ik:kamera}}</div></article>
+      <article class="sl-karta o"><div class="sl-br">02</div><div><h3>Račun troška u PANTHEON-u</h3><p>Svaka stavka posebno, PDV po stopi, na tip dokumenta i skladište koje firma već koristi. Novog dobavljača Fioka doda sama — iz APR-a.</p></div><div class="sl-ik">{{ik:fioka}}</div></article>
+      <article class="sl-karta p"><div class="sl-br">03</div><div><h3>Zaposleni bez lozinke</h3><p>Vlasnik pošalje link, zaposleni ga otvori na telefonu, upiše ime — i skenira. Vidi samo svoje račune.</p></div><div class="sl-ik">{{ik:ljudi}}</div></article>
     </div>
   </div>
 </section>
@@ -31,7 +31,7 @@
   <div class="omot">
     <div class="zaglavlje-odeljka">
       <div class="nadnaslov" data-r style="color:var(--fioka)">Kako ide</div>
-      <h2 data-split>Od papira <em style="color:var(--fioka)">do knjige.</em></h2>
+      <h2 data-split>Od papira <em style="--em:var(--fioka)">do knjige.</em></h2>
     </div>
     <div class="put" style="--k:var(--fioka)">
       <div class="korak"><div class="kr">1</div><div><h3>Zaposleni skenira</h3><p>Uperi telefon u QR na dnu računa i Fioka ga pročita sama — ili sa slike, iz galerije, ili prevučene slike na računaru.</p></div></div>
@@ -71,7 +71,7 @@
   <div class="omot">
     <div class="zaglavlje-odeljka centar">
       <div class="nadnaslov" data-r style="color:var(--fioka)">Pitanja</div>
-      <h2 data-split>Šta se pita pre nego što <em style="color:var(--fioka)">se uključi.</em></h2>
+      <h2 data-split>Šta se pita pre nego što <em style="--em:var(--fioka)">se uključi.</em></h2>
     </div>
     <div class="pitanja">
       <details><summary>Treba li aplikacija iz prodavnice?</summary><div class="odg"><p>Ne. Fioka se otvara u pregledaču na telefonu i može da se doda na početni ekran kao aplikacija. Ništa se ne instalira i ne ažurira ručno.</p></div></details>
@@ -96,7 +96,7 @@
 <section class="poziv tamno" style="--k:var(--fioka)">
   <div class="omot">
     <div class="nadnaslov" data-r style="color:var(--fioka)">Sledeći korak</div>
-    <h2 data-split>Probajte na <em style="color:var(--fioka)">jednom</em> računu.</h2>
+    <h2 data-split>Probajte na <em style="--em:var(--fioka)">jednom</em> računu.</h2>
     <p class="uvod centar" data-r style="margin-top:24px">Napravite fioku firme, skenirajte prvi račun i pogledajte šta Poreska vrati. Za upis u PANTHEON treba isti konektor kao za Vidik.</p>
     <div class="dugmad" data-r>
       <a class="dugme mag" href="{{demo:fioka}}" target="_blank" rel="noopener" style="--b:var(--fioka)">Otvorite Fioku <span class="str">→</span></a>

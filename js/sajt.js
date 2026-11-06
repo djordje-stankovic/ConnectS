@@ -340,3 +340,252 @@
     kadar();
   })();
 })();
+
+/* ===========================================================================
+   Drugi krug (06.11.): zupčanici, nit, slagalica, vodoravni skrol,
+   dekodiranje nadnaslova, tekuća traka po brzini skrola, terminal u heroju.
+   =========================================================================== */
+(function () {
+  'use strict';
+  var mirno = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, k) { return (k || document).querySelector(s); };
+  var $$ = function (s, k) { return Array.prototype.slice.call((k || document).querySelectorAll(s)); };
+  var ogr = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+
+  /* jedan rAF po kadru za sve što zavisi od skrola */
+  var zadaci = [];
+  var zakazano = false;
+  function naSkrol() { if (!zakazano) { zakazano = true; requestAnimationFrame(function () { zakazano = false; zadaci.forEach(function (f) { f(); }); }); } }
+  addEventListener('scroll', naSkrol, { passive: true });
+  addEventListener('resize', naSkrol);
+
+  /* ---------- zupčanici: veliki prati skrol, mali ide nazad po odnosu zuba ---------- */
+  var zv = $('.z-veliki'), zm = $('.z-mali');
+  if (zv && zm) {
+    var cv = zv.getAttribute('data-c'), cm = zm.getAttribute('data-c');
+    var odnos = (+zv.getAttribute('data-zubi')) / (+zm.getAttribute('data-zubi'));
+    var ugao = 0, cilj = 0;
+    var vrti = function () {
+      ugao += (cilj - ugao) * .12;
+      zv.setAttribute('transform', 'rotate(' + (1.5 + ugao).toFixed(2) + ' ' + cv.replace(',', ' ') + ')');
+      zm.setAttribute('transform', 'rotate(' + (-3.86 - ugao * odnos).toFixed(2) + ' ' + cm.replace(',', ' ') + ')');
+      if (Math.abs(cilj - ugao) > .05) requestAnimationFrame(vrti);
+    };
+    zadaci.push(function () { cilj = scrollY * .12; if (!mirno) requestAnimationFrame(vrti); });
+    vrti();
+  }
+
+  /* ---------- nit: trag koji se crta niz celu stranu ---------- */
+  var nit = $('.nit');
+  if (nit) (function () {
+    var NS = 'http://www.w3.org/2000/svg';
+    var staza = $('.nit-staza', nit), tok = $('.nit-tok', nit), glava = $('.nit-glava', nit), grupa = $('.nit-cvorovi', nit);
+    var main = nit.parentElement, uzorci = [], duz = 0, cvorovi = [], sada = 0, cilj = 0;
+
+    function zaobli(t, r) {
+      var d = 'M' + t[0][0] + ',' + t[0][1];
+      for (var i = 1; i < t.length - 1; i++) {
+        var p = t[i - 1], c = t[i], n = t[i + 1];
+        var d1 = Math.hypot(c[0] - p[0], c[1] - p[1]), d2 = Math.hypot(n[0] - c[0], n[1] - c[1]);
+        var rr = Math.min(r, d1 / 2, d2 / 2);
+        var a = [c[0] - (c[0] - p[0]) / d1 * rr, c[1] - (c[1] - p[1]) / d1 * rr];
+        var b = [c[0] + (n[0] - c[0]) / d2 * rr, c[1] + (n[1] - c[1]) / d2 * rr];
+        d += 'L' + a[0].toFixed(1) + ',' + a[1].toFixed(1) + 'Q' + c[0] + ',' + c[1] + ' ' + b[0].toFixed(1) + ',' + b[1].toFixed(1);
+      }
+      var l = t[t.length - 1];
+      return d + 'L' + l[0] + ',' + l[1];
+    }
+
+    function gradi() {
+      var W = main.clientWidth;
+      var sek = Array.prototype.filter.call(main.children, function (e) { return e !== nit && e.offsetHeight > 160; });
+      if (sek.length < 2) return;
+      var traka = W > 900 ? Math.max(22, Math.min(64, (W - 1200) / 4 + 30)) : 9;
+      var strane = [traka, W - traka];
+      var t = [], cv = [];
+      var prvi = sek[0];
+      var y0 = prvi.offsetTop + prvi.offsetHeight - 70;
+      t.push([W / 2, y0]);
+      var strana = 0;
+      var x = W / 2;
+      for (var i = 1; i < sek.length; i++) {
+        var y = sek[i].offsetTop;
+        if (i === 1 || i % 2 === 1) {
+          /* prelaz na drugu stranu po spoju odeljaka */
+          t.push([x, y]); x = strane[strana]; t.push([x, y]);
+          strana = 1 - strana;
+          cv.push({ x: x, y: y, smer: x < W / 2 ? 1 : -1 });
+        } else {
+          cv.push({ x: x, y: y, smer: x < W / 2 ? 1 : -1 });
+        }
+      }
+      var kraj = main.offsetHeight;
+      t.push([x, kraj - 2]);
+      var d = zaobli(t, 28);
+      staza.setAttribute('d', d); tok.setAttribute('d', d);
+      duz = tok.getTotalLength();
+      tok.style.strokeDasharray = duz + ' ' + duz;
+      uzorci = [];
+      for (var l = 0; l <= duz; l += 16) uzorci.push([l, tok.getPointAtLength(l).y]);
+      uzorci.push([duz, tok.getPointAtLength(duz).y]);
+      /* čvorovi: tačka na niti + kratka grana ka sadržaju, kao trag na ploči */
+      grupa.innerHTML = '';
+      cvorovi = cv.map(function (c) {
+        var g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'nit-cvor');
+        var gx = c.x + c.smer * 34, gy = c.y + 34;
+        g.innerHTML = '<path d="M' + c.x + ',' + c.y + ' L' + (c.x + c.smer * 14) + ',' + (c.y + 14) + ' L' + gx + ',' + (c.y + 14) + ' L' + (gx + c.smer * 20) + ',' + gy + '"/>' +
+          '<circle class="pad" cx="' + (gx + c.smer * 20) + '" cy="' + gy + '" r="3.5"/>' +
+          '<circle class="talas" cx="' + c.x + '" cy="' + c.y + '" r="5"/>' +
+          '<circle cx="' + c.x + '" cy="' + c.y + '" r="5"/>';
+        grupa.appendChild(g);
+        return { el: g, y: c.y };
+      });
+      cilj = sada = duzinaZa(scrollY + innerHeight * .62);
+      crtaj(true);
+    }
+
+    function duzinaZa(y) {
+      if (!uzorci.length) return 0;
+      var lo = 0, hi = uzorci.length - 1;
+      if (y <= uzorci[0][1]) return 0;
+      while (lo < hi) { var m = (lo + hi + 1) >> 1; if (uzorci[m][1] <= y) lo = m; else hi = m - 1; }
+      return uzorci[lo][0];
+    }
+    function crtaj(odmah) {
+      if (!duz) return;
+      sada = odmah ? cilj : sada + (cilj - sada) * .14;
+      tok.style.strokeDashoffset = duz - sada;
+      var p = tok.getPointAtLength(Math.max(sada, .1));
+      glava.setAttribute('cx', p.x); glava.setAttribute('cy', p.y);
+      glava.style.opacity = sada > 2 && sada < duz - 2 ? 1 : 0;
+      cvorovi.forEach(function (c) { c.el.classList.toggle('u', c.y <= p.y + 2); });
+      if (!odmah && Math.abs(cilj - sada) > .5) requestAnimationFrame(function () { crtaj(false); });
+    }
+    zadaci.push(function () { cilj = duzinaZa(scrollY + innerHeight * .62); if (mirno) crtaj(true); else requestAnimationFrame(function () { crtaj(false); }); });
+    var rt;
+    var ponovo = function () { clearTimeout(rt); rt = setTimeout(gradi, 120); };
+    if (window.ResizeObserver) new ResizeObserver(ponovo).observe(main); else addEventListener('resize', ponovo);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(ponovo);
+    addEventListener('load', ponovo);
+    gradi();
+  })();
+
+  /* ---------- slagalica: prethodna karta se smanji i potamni ---------- */
+  $$('.slagalica').forEach(function (s) {
+    var karte = $$('.sl-karta', s);
+    karte.forEach(function (k, i) { k.style.setProperty('--i', i); });
+    zadaci.push(function () {
+      karte.forEach(function (k, i) {
+        var sl = karte[i + 1];
+        if (!sl) return;
+        var r = k.getBoundingClientRect(), rs = sl.getBoundingClientRect();
+        var p = ogr(1 - (rs.top - r.top) / r.height, 0, 1);
+        k.style.transform = 'scale(' + (1 - p * .06 * (karte.length - i - 1) / (karte.length - 1)).toFixed(4) + ')';
+        k.style.filter = 'brightness(' + (1 - p * .35).toFixed(3) + ')';
+      });
+    });
+  });
+
+  /* ---------- vodoravni skrol: visina odeljka = dužina trake ---------- */
+  $$('.horiz').forEach(function (h) {
+    var traka = $('.horiz-traka', h), nap = $('.horiz-napredak', h);
+    var visina = function () { h.style.height = (traka.scrollWidth - innerWidth + innerHeight) + 'px'; };
+    visina(); addEventListener('resize', visina);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(visina);
+    zadaci.push(function () {
+      var r = h.getBoundingClientRect();
+      var p = ogr(-r.top / (h.offsetHeight - innerHeight), 0, 1);
+      traka.style.transform = 'translateX(' + (-p * (traka.scrollWidth - innerWidth)) + 'px)';
+      if (nap) nap.style.setProperty('--p', p);
+    });
+  });
+
+  /* ---------- nadnaslov se „dekodira" kad uđe u ekran ---------- */
+  if (!mirno) {
+    var ZN = 'ABCDEFGHIJKLMNOPRSTUVZ0123456789#<>/{}=*';
+    var dekodiraj = function (el) {
+      var cilj = el.textContent, n = cilj.length, kadar = 0, ukupno = 22;
+      var korak = function () {
+        kadar++;
+        var gotovo = Math.floor(n * kadar / ukupno), s = '';
+        for (var i = 0; i < n; i++) s += i < gotovo || cilj[i] === ' ' ? cilj[i] : ZN[(Math.random() * ZN.length) | 0];
+        el.textContent = s;
+        if (kadar < ukupno) setTimeout(korak, 34); else el.textContent = cilj;
+      };
+      korak();
+    };
+    var dp = new IntersectionObserver(function (st) {
+      st.forEach(function (s) { if (s.isIntersecting) { dp.unobserve(s.target); setTimeout(function () { dekodiraj(s.target); }, 150); } });
+    }, { threshold: .6 });
+    $$('.nadnaslov').forEach(function (el) { if (!el.children.length) dp.observe(el); });
+  }
+
+  /* ---------- tekuća traka: ubrza kad se skroluje ---------- */
+  var redovi = $$('.tekuca-red');
+  if (redovi.length && !mirno) {
+    var poz = redovi.map(function () { return 0; }), poslY = scrollY, brzina = 0;
+    (function tece() {
+      var dy = scrollY - poslY; poslY = scrollY;
+      brzina += (dy - brzina) * .1;
+      redovi.forEach(function (r, i) {
+        var pola = r.scrollWidth / 2;
+        poz[i] -= .6 + Math.abs(brzina) * .45;
+        if (poz[i] <= -pola) poz[i] += pola;
+        r.style.transform = 'translateX(' + poz[i].toFixed(1) + 'px)';
+      });
+      requestAnimationFrame(tece);
+    })();
+  }
+
+  /* ---------- hero: sadržaj sporije od skrola, pa se rastapa ---------- */
+  var heroOmot = $('.hero .omot'), terminal = $('.terminal');
+  if (heroOmot && !mirno) zadaci.push(function () {
+    var y = scrollY, h = innerHeight;
+    if (y > h * 1.2) return;
+    heroOmot.style.transform = 'translateY(' + (y * .28) + 'px)';
+    heroOmot.style.opacity = ogr(1 - y / (h * .8), 0, 1);
+    if (terminal) terminal.style.transform = 'translateY(' + (y * .12) + 'px)';
+  });
+
+  /* ---------- narandžasti blok: svetlo prati miša ---------- */
+  document.addEventListener('pointermove', function (e) {
+    var el = e.target.closest && e.target.closest('.narandzasto');
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+
+  /* ---------- terminal u heroju: konektor pita PANTHEON, Vidik odgovara ---------- */
+  var pre = $('.terminal pre');
+  if (pre) {
+    var LINIJE = [
+      ['c', '// konektor → PANTHEON, samo čitanje'],
+      ['k', 'SELECT '], ['', 'kupac, SUM(dug) '], ['k', 'FROM '], ['', 'saldakonti'], ['', '\n'],
+      ['k', 'WHERE '], ['', 'dospelo < GETDATE()'], ['', '\n\n'],
+      ['c', '// vidik → telefon direktora'], ['', '\n'],
+      ['s', '✓ 4 kupca kasne više od 90 dana'], ['', '\n'],
+      ['s', '✓ POPDV stariji od knjige 28 dana'], ['', '\n'],
+      ['s', '✓ 0 otvorenih portova']
+    ];
+    LINIJE[0][1] += '\n';
+    var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+    var kucaj = function () {
+      var i = 0, j = 0, html = '';
+      var korak = function () {
+        if (i >= LINIJE.length) { pre.innerHTML = html + '<span class="kursor"></span>'; setTimeout(kucaj, 5200); return; }
+        var l = LINIJE[i];
+        j++;
+        var deo = l[1].slice(0, j);
+        pre.innerHTML = html + (l[0] ? '<span class="' + l[0] + '">' + esc(deo) + '</span>' : esc(deo)) + '<span class="kursor"></span>';
+        if (j >= l[1].length) { html += l[0] ? '<span class="' + l[0] + '">' + esc(l[1]) + '</span>' : esc(l[1]); i++; j = 0; }
+        setTimeout(korak, l[1] === '\n' || l[1] === '\n\n' ? 160 : 22 + Math.random() * 30);
+      };
+      korak();
+    };
+    if (mirno) pre.innerHTML = LINIJE.map(function (l) { return l[0] ? '<span class="' + l[0] + '">' + esc(l[1]) + '</span>' : esc(l[1]); }).join('');
+    else setTimeout(kucaj, 1200);
+  }
+
+  naSkrol();
+})();
