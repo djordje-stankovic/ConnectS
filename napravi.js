@@ -169,14 +169,16 @@ function zaglavlje(meni) {
 <header class="zaglavlje"><div class="omot">
   ${LOGO}
   <nav class="meni" aria-label="Glavni meni">
+    ${a('index.html', 'Početna')}
     ${a('pantheon.html', 'PANTHEON')}
-    <div class="pod${proizvodAkt ? ' akt' : ''}"><button type="button" aria-haspopup="true">Naši proizvodi ${strelica}</button>
+    <div class="pod${proizvodAkt ? ' akt' : ''}"><button type="button" aria-haspopup="true">Proizvodi ${strelica}</button>
       <div class="pod-ploca">
         ${PROIZVODI.map(p => `<a href="${p[0]}.html" style="${p[3]}"><span class="znak-p">${ikona(p[0])}</span><span><b>${p[1]}</b><small>${p[2]}</small></span></a>`).join('\n        ')}
       </div>
     </div>
     ${a('implementacija.html', 'Implementacija')}
     ${a('podrska.html', 'Podrška')}
+    ${a('o-nama.html', 'O nama')}
     ${a('kontakt.html', 'Kontakt')}
     <a class="dugme mag" href="kontakt.html">Zakažite razgovor</a>
   </nav>
@@ -188,6 +190,7 @@ function zaglavlje(meni) {
   ${PROIZVODI.map(p => `<a class="pr" href="${p[0]}.html" style="${p[3]}">${p[1]}<small>${p[2].split(' ').slice(0, 3).join(' ')}…</small></a>`).join('\n  ')}
   <a href="implementacija.html">Implementacija</a>
   <a href="podrska.html">Podrška</a>
+  <a href="o-nama.html">O nama</a>
   <a href="kontakt.html">Kontakt</a>
 </nav>`;
 }
@@ -205,6 +208,7 @@ function podnozje() {
       <li><a href="pantheon.html#verzije">Verzije</a></li>
       <li><a href="implementacija.html">Implementacija</a></li>
       <li><a href="podrska.html">Podrška</a></li>
+      <li><a href="o-nama.html">O nama</a></li>
     </ul></div>
     <div><h4>Naši proizvodi</h4><ul>
       ${PROIZVODI.map(p => `<li><a href="${p[0]}.html">${p[1]}</a></li>`).join('\n      ')}
