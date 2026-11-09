@@ -306,10 +306,12 @@
       var r = tacke.getBoundingClientRect();
       var p = mirno ? 1 : ogr(-r.top / (r.height - innerHeight), 0, 1);
       var W = scena.clientWidth, H = scena.clientHeight, usko = W < 760;
-      var a = glatko((p - .12) / .28);   /* tačke → krugovi */
-      var b = glatko((p - .48) / .3);    /* krugovi → kartice */
+      /* na telefonu je odeljak kraći, pa tačke ne stoje dugo same na sredini */
+      var a = usko ? glatko((p - .04) / .26) : glatko((p - .12) / .28);   /* tačke → krugovi */
+      var b = usko ? glatko((p - .4) / .32) : glatko((p - .48) / .3);     /* krugovi → kartice */
       var cw = usko ? W - 32 : Math.min((W - 120) / 3, 360);
-      var vrh = 210, ch = usko ? Math.min((H - vrh - 36) / 3, 220) : Math.min(H * .52, 420);
+      /* na telefonu kartice počinju ispod nadnaslova (naslov se tad skloni), da tekst stane */
+      var vrh = usko ? 118 : 210, ch = usko ? Math.min((H - vrh - 36) / 3, 220) : Math.min(H * .52, 420);
       var krug = usko ? Math.min(W * .22, 96) : Math.min(W * .11, 150);
       el.forEach(function (t, i) {
         var o = i - 1;
@@ -332,7 +334,7 @@
         t.style.pointerEvents = b > .8 ? 'auto' : 'none';
         t.style.overflow = b > .05 ? 'hidden' : 'visible';
       });
-      var faza = b > .5 ? 2 : (a > .45 ? 1 : 0);
+      var faza = b > (usko ? .2 : .5) ? 2 : (a > .45 ? 1 : 0);
       naslovi.forEach(function (n, i) { n.classList.toggle('sk', i !== faza); });
     }
     addEventListener('scroll', function () { requestAnimationFrame(kadar); }, { passive: true });
@@ -541,6 +543,8 @@
   var heroOmot = $('.hero .omot'), terminal = $('.terminal');
   if (heroOmot && !mirno) zadaci.push(function () {
     var y = scrollY, h = innerHeight;
+    /* na telefonu je heroj viši od ekrana: rastapanje bi sakrilo dugmad i brojke pre nego što se vide */
+    if (innerWidth < 760) { heroOmot.style.transform = heroOmot.style.opacity = ''; return; }
     if (y > h * 1.2) return;
     heroOmot.style.transform = 'translateY(' + (y * .28) + 'px)';
     heroOmot.style.opacity = ogr(1 - y / (h * .8), 0, 1);

@@ -957,3 +957,31 @@ main { position: relative; }
   .orb-cvor > span svg { width: 14px; height: 14px; }
 }
 .red-opis b { color: inherit; font-weight: 700; }
+
+/* ===========================================================================
+   Telefon, treći krug (09.11.): tri tačke kraće i kartice u koje tekst staje,
+   brojke i natpisi koji su izlazili iz ekrana.
+   =========================================================================== */
+@media (max-width: 760px) {
+  .tacke { height: 250vh; }
+  /* u poslednjoj fazi ostaje samo nadnaslov, kartice zauzmu ostatak ekrana */
+  .tacke-naslov .t:last-child h2 { display: none; }
+}
+@media (max-width: 560px) {
+  .tacke-naslov { top: 84px; }
+  .tacke-naslov h2 { font-size: 30px; }
+  .tacka-sadrzaj { padding: 16px 18px; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr auto; column-gap: 12px; align-content: start; }
+  .tacka-sadrzaj .znak-p { grid-row: 1; grid-column: 1; align-self: center; }
+  .tacka-sadrzaj h3 { grid-row: 1; grid-column: 2; margin: 0; font-size: 26px; align-self: center; }
+  .tacka-sadrzaj p { grid-column: 1 / -1; margin: 10px 0 6px; font-size: 14px; line-height: 1.45; -webkit-line-clamp: 3; }
+  .tacka-sadrzaj .str { grid-column: 1 / -1; align-self: end; }
+
+  .brojke b { font-size: 36px; }
+  .brojke div, .brojke-blok .brojke div { padding: 30px 14px; min-width: 0; }
+  .brojke span { font-size: 13.5px; }
+
+  .sema-kabl span { white-space: normal; width: 130px; line-height: 1.4; }
+
+  .s-hero h1 { font-size: 40px; }
+  h1, h2 { overflow-wrap: break-word; }
+}
