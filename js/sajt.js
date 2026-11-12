@@ -673,3 +673,154 @@
     });
   });
 })();
+
+/* ===========================================================================
+   ČETVRTI KRUG (12.11.): PRETVARANJE. Odeljak [data-pretvori] ima dva ili
+   više .pr-oblik; isti [data-d] ključ u dva oblika je isti deo podatka.
+   Motor izmeri delove u svakom obliku, napravi im klonove i skrolom ih vodi
+   iz oblika u oblik: deo se odigne, okrene kao ploča (lice = stari oblik,
+   naličje = novi), preleti i uz odskok zaključa. Delovi kreću jedan za
+   drugim, odozgo nadole — ritam je ono što pravi utisak mehanizma.
+   Ključ koji postoji samo u jednom obliku nestaje / sklapa se na mestu.
+   Više ključeva na istom elementu (data-d="a b") = delovi se stapaju u jedan.
+   =========================================================================== */
+(function () {
+  'use strict';
+  var mirno = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, k) { return (k || document).querySelector(s); };
+  var $$ = function (s, k) { return Array.prototype.slice.call((k || document).querySelectorAll(s)); };
+  var ogr = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var glatko = function (t) { t = ogr(t, 0, 1); return t * t * (3 - 2 * t); };
+  /* prebaci pa se vrati: zaključavanje */
+  var odskok = function (t) { var c1 = 1.5, c3 = c1 + 1; t = ogr(t, 0, 1) - 1; return 1 + c3 * t * t * t + c1 * t * t; };
+
+  $$('[data-pretvori]').forEach(function (sek) {
+    var poz = $('.pr-pozornica', sek), oblici = $$('.pr-oblik', sek), naslovi = $$('.pr-natpis .t', sek);
+    var m = oblici.length;
+    if (m < 2) return;
+    sek.style.setProperty('--m', m);
+
+    /* faze dole */
+    var faze = document.createElement('div'); faze.className = 'pr-faze'; faze.setAttribute('aria-hidden', 'true');
+    faze.innerHTML = oblici.map(function (o, j) {
+      return (j ? '<i></i>' : '') + '<span><b>0' + (j + 1) + '</b>' + (o.getAttribute('data-ime') || '') + '</span>';
+    }).join('');
+    $('.pr-scena', sek).appendChild(faze);
+    var fazeS = $$('span', faze), fazeI = $$('i', faze);
+
+    var kljucevi = [];
+    oblici.forEach(function (o) {
+      $$('[data-d]', o).forEach(function (el) {
+        el.getAttribute('data-d').split(/\s+/).forEach(function (k) { if (k && kljucevi.indexOf(k) < 0) kljucevi.push(k); });
+      });
+    });
+    var sloj = document.createElement('div'); sloj.className = 'pr-delovi'; sloj.setAttribute('aria-hidden', 'true');
+    poz.appendChild(sloj);
+    var delovi = kljucevi.map(function (k, i) {
+      var el = document.createElement('div'); el.className = 'pr-deo';
+      el.innerHTML = '<div class="pr-lice"></div><div class="pr-lice pr-nalicje"></div>';
+      sloj.appendChild(el);
+      return { k: k, i: i, el: el, lice: el.children[0], nal: el.children[1], mere: [], klon: [], red: [], prikaz: '', zak: false };
+    });
+
+    function izvor(o, k) {
+      return $$('[data-d]', o).filter(function (el) { return el.getAttribute('data-d').split(/\s+/).indexOf(k) >= 0; })[0];
+    }
+    function meri() {
+      var pr = poz.getBoundingClientRect();
+      delovi.forEach(function (d) {
+        d.mere = []; d.klon = [];
+        oblici.forEach(function (o, j) {
+          var el = izvor(o, d.k);
+          if (!el) { d.mere[j] = null; d.klon[j] = null; return; }
+          var r = el.getBoundingClientRect();
+          d.mere[j] = { x: r.left - pr.left, y: r.top - pr.top, w: r.width, h: r.height };
+          var c = el.cloneNode(true);
+          c.removeAttribute('data-d');
+          $$('[data-d]', c).forEach(function (u) { u.style.visibility = 'hidden'; });
+          c.style.width = r.width + 'px'; c.style.height = r.height + 'px';
+          d.klon[j] = c;
+        });
+        d.prikaz = '';
+      });
+      /* redosled polaska po prelazu: odozgo nadole, pa sleva nadesno */
+      for (var j = 0; j < m - 1; j++) {
+        var po = delovi.slice().sort(function (a, b) {
+          var A = a.mere[j] || a.mere[j + 1], B = b.mere[j] || b.mere[j + 1];
+          return (A.y - B.y) || (A.x - B.x);
+        });
+        po.forEach(function (d, r) { d.red[j] = po.length > 1 ? r / (po.length - 1) : 0; });
+      }
+      kadar();
+    }
+
+    function lica(d, prednje, zadnje) {
+      var kljuc = prednje + '|' + zadnje;
+      if (d.prikaz === kljuc) return;
+      d.prikaz = kljuc;
+      d.lice.replaceChildren(); d.nal.replaceChildren();
+      if (prednje >= 0 && d.klon[prednje]) d.lice.appendChild(d.klon[prednje]);
+      if (zadnje >= 0 && d.klon[zadnje]) d.nal.appendChild(d.klon[zadnje]);
+    }
+
+    function kadar() {
+      var r = sek.getBoundingClientRect();
+      var p = mirno ? 1 : ogr(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
+      var tok = ogr((p - .05) / .88, 0, 1) * (m - 1);        /* 0 … m-1 */
+      var seg = Math.min(Math.floor(tok), m - 2), T = ogr((tok - seg - .08) / .84, 0, 1);
+
+      oblici.forEach(function (o, j) {
+        var v = j === seg ? 1 - glatko((T - .1) / .55) : j === seg + 1 ? glatko((T - .35) / .55) : 0;
+        o.style.setProperty('--vid', v.toFixed(3));
+      });
+      var faza = T >= .5 ? seg + 1 : seg;
+      naslovi.forEach(function (n, j) { n.classList.toggle('sk', j !== faza); });
+      fazeS.forEach(function (s, j) { s.classList.toggle('akt', j === faza); });
+      fazeI.forEach(function (i, j) { i.style.setProperty('--pun', j < seg ? 1 : j === seg ? T.toFixed(3) : 0); });
+
+      var RAZ = .5; /* koliko kasni poslednji deo za prvim */
+      delovi.forEach(function (d) {
+        var A = d.mere[seg], B = d.mere[seg + 1], s = d.el.style;
+        var t = ogr((T - d.red[seg] * RAZ) / (1 - RAZ), 0, 1);
+        var x, y, w, h, z = 0, rot = 0, nag = 0, op = 1, sk = 1, osaY = false;
+        if (!A && !B) { s.opacity = 0; return; }
+        if (A && B) {
+          lica(d, seg, seg + 1);
+          var f = odskok((t - .12) / .88);
+          x = lerp(A.x, B.x, f); y = lerp(A.y, B.y, f);
+          w = Math.max(1, lerp(A.w, B.w, ogr(f, 0, 1.04))); h = Math.max(1, lerp(A.h, B.h, ogr(f, 0, 1.04)));
+          osaY = Math.max(A.h, B.h) > Math.min(A.w, B.w) * .8;   /* uske ploče se okreću oko uspravne ose */
+          rot = 180 * glatko((t - .08) / .62) * (d.i % 2 ? -1 : 1);
+          var luk = Math.sin(Math.PI * ogr(t, 0, 1));
+          z = luk * 110; nag = luk * (d.i % 2 ? 4 : -4);
+          sk = 1 + glatko(t / .12) * .04 * (1 - glatko((t - .8) / .2));
+        } else if (A) {                                             /* odlazi */
+          lica(d, seg, -1);
+          x = A.x; y = A.y + glatko(t) * 40; w = A.w; h = A.h;
+          op = 1 - glatko(t / .7); sk = 1 - glatko(t) * .35; rot = glatko(t) * 70;
+        } else {                                                    /* sklapa se */
+          lica(d, seg + 1, -1);
+          x = B.x; y = B.y - (1 - odskok(t)) * 40; w = B.w; h = B.h;
+          op = glatko(t / .5); sk = .65 + .35 * odskok(t); rot = (1 - glatko(t / .8)) * -80;
+        }
+        d.el.classList.toggle('osa-y', osaY); d.el.classList.toggle('osa-x', !osaY);
+        s.opacity = op;
+        s.width = w + 'px'; s.height = h + 'px';
+        s.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) rotateZ(' + nag.toFixed(2) + 'deg) ' +
+          (osaY ? 'rotateY(' : 'rotateX(') + rot.toFixed(1) + 'deg) scale(' + sk.toFixed(3) + ')';
+        s.zIndex = Math.round(z) + 10;
+
+        /* bljesak kad legne; ponovo tek kad se odlepi */
+        if (B && t >= 1 && !d.zak && !mirno) { d.zak = true; d.el.classList.remove('zak'); void d.el.offsetWidth; d.el.classList.add('zak'); }
+        if (t < .9 && d.zak) { d.zak = false; d.el.classList.remove('zak'); }
+      });
+    }
+
+    var zak = false;
+    addEventListener('scroll', function () { if (!zak) { zak = true; requestAnimationFrame(function () { zak = false; kadar(); }); } }, { passive: true });
+    var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(meri, 150); });
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(meri);
+    meri();
+  });
+})();
