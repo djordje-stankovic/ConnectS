@@ -6,7 +6,8 @@
    Zaglavlje, podnožje, ikone i mokapi proizvoda su ovde, na jednom mestu,
    da se meni ne raziđe po stranama.
 
-   Pokretanje: `node napravi.js` → gotove strane u korenu (index.html ...).
+   Pokretanje: `node napravi.js` → gotove strane u korenu (index.html ...),
+   plus sitemap.xml i robots.txt za DOMEN.
    Strane se otvaraju i duplim klikom — nema servera ni build alata.
 
    U tekstu strane:  {{ik:ime}}  = ikona,  {{mk:vidik|izlog|fioka}} = mokap,
@@ -15,6 +16,10 @@
    =========================================================================== */
 const fs = require('fs');
 const path = require('path');
+
+/* Konačna adresa sajta: canonical, og:url, JSON-LD, sitemap.xml i robots.txt
+   idu na nju i dok sajt stoji na github.io. */
+const DOMEN = 'https://connectsoftware.rs/';
 
 const FIRMA = {
   ime: 'Connect Software Solutions',
@@ -247,6 +252,83 @@ function podnozje() {
 </div></footer>`;
 }
 
+/* ---------------------------------------------------------------- za pretraživače i AI
+   Strukturirani podaci (schema.org JSON-LD): ko je firma, šta su proizvodi i
+   česta pitanja — da ih Google i AI asistenti čitaju kao činjenice, ne da ih
+   pogađaju iz teksta. Česta pitanja se vade iz <details> strane, pa se ne
+   održavaju na dva mesta. */
+const adresaStrane = f => DOMEN + (f === 'index.html' ? '' : f);
+const ORG_ID = DOMEN + '#firma';
+const bezOznaka = s => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+const ORGANIZACIJA = {
+  '@type': 'ProfessionalService',
+  '@id': ORG_ID,
+  name: FIRMA.ime,
+  alternateName: ['Connect Software', 'CSS'],
+  url: DOMEN,
+  description: 'Premium partner za PANTHEON ERP iz Novog Sada, više od 15 godina: prodaja, implementacija, podrška i prilagođavanje PANTHEON-a za mala i srednja preduzeća u Srbiji, i sopstveni proizvodi nad PANTHEON-om — Vidik, Izlog i Fioka.',
+  telephone: FIRMA.tel,
+  email: FIRMA.mejl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Futoška 35',
+    postalCode: '21000',
+    addressLocality: 'Novi Sad',
+    addressCountry: 'RS'
+  },
+  hasMap: FIRMA.mapa,
+  areaServed: { '@type': 'Country', name: 'Srbija' },
+  knowsAbout: ['PANTHEON ERP', 'implementacija ERP-a', 'podrška za PANTHEON', 'Blue Soft 04', 'POPDV', 'eFakture (SEF)'],
+  sameAs: [...Object.values(DRUSTVENE).map(d => d[0]), 'https://connectsoftware.biz', 'https://hu.connectsoftware.rs/', 'https://css-pantheon.hr/']
+};
+
+function strukturirano(meta, src, fajl) {
+  const graf = [ORGANIZACIJA, {
+    '@type': 'WebPage',
+    '@id': adresaStrane(fajl) + '#strana',
+    url: adresaStrane(fajl),
+    name: meta.naslov,
+    description: meta.opis,
+    inLanguage: 'sr-Latn',
+    isPartOf: { '@type': 'WebSite', '@id': DOMEN + '#sajt', url: DOMEN, name: FIRMA.ime, publisher: { '@id': ORG_ID } }
+  }];
+
+  const proizvod = PROIZVODI.find(p => p[0] + '.html' === fajl);
+  if (proizvod) graf.push({
+    '@type': 'SoftwareApplication',
+    name: proizvod[1],
+    description: meta.opis,
+    url: adresaStrane(fajl),
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web (telefon, tablet, računar)',
+    isAccessibleForFree: false,
+    publisher: { '@id': ORG_ID },
+    provider: { '@id': ORG_ID }
+  });
+
+  const pitanja = [...src.matchAll(/<details[^>]*>\s*<summary>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/g)];
+  if (pitanja.length) graf.push({
+    '@type': 'FAQPage',
+    mainEntity: pitanja.map(([, p, o]) => ({
+      '@type': 'Question',
+      name: bezOznaka(p),
+      acceptedAnswer: { '@type': 'Answer', text: bezOznaka(o) }
+    }))
+  });
+
+  if (fajl !== 'index.html') graf.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Početna', item: DOMEN },
+      { '@type': 'ListItem', position: 2, name: meta.naslov.split(/ [—|] /)[0], item: adresaStrane(fajl) }
+    ]
+  });
+
+  /* `<` kao <: tekst odgovora ne sme da zatvori <script>. */
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graf }).replace(/</g, '\\u003c');
+}
+
 function strana(meta, telo, fajl) {
   return `<!doctype html>
 <html lang="sr-Latn">
@@ -255,10 +337,15 @@ function strana(meta, telo, fajl) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${meta.naslov}</title>
 <meta name="description" content="${meta.opis}">
+<link rel="canonical" href="${adresaStrane(fajl)}">
 <meta name="theme-color" content="#0a101c">
 <meta property="og:title" content="${meta.naslov}">
 <meta property="og:description" content="${meta.opis}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="${adresaStrane(fajl)}">
+<meta property="og:site_name" content="${FIRMA.ime}">
+<meta property="og:locale" content="sr_RS">
+<script type="application/ld+json">${strukturirano(meta, telo, fajl)}</script>
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#0a101c'/><circle cx='8' cy='16' r='4' fill='#f5802b'/><circle cx='16' cy='16' r='4' fill='#f5802b'/><circle cx='24' cy='16' r='4' fill='#f5802b'/></svg>`)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -298,3 +385,28 @@ for (const f of izvori) {
   console.log('  ' + f);
 }
 console.log(izvori.length + ' strana.');
+
+/* sitemap.xml + robots.txt — važe tek u korenu domena (DOMEN); na
+   github.io/ConnectS/ ih pretraživači ignorišu. Datum izmene je poslednji
+   commit izvora strane. */
+const izmenjeno = f => {
+  try {
+    return require('child_process').execSync(`git log -1 --date=short --format=%cd -- "strane/${f}"`, { cwd: __dirname }).toString().trim();
+  } catch { return ''; }
+};
+const prioritet = f => f === 'index.html' ? '1.0' : PROIZVODI.some(p => p[0] + '.html' === f) || f === 'pantheon.html' ? '0.9' : '0.7';
+fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${izvori.map(f => {
+  const d = izmenjeno(f) || new Date().toISOString().slice(0, 10);
+  return `  <url><loc>${adresaStrane(f)}</loc><lastmod>${d}</lastmod><priority>${prioritet(f)}</priority></url>`;
+}).join('\n')}
+</urlset>
+`);
+/* Svi botovi smeju, i pretraživači i AI asistenti — cilj je da nas citiraju. */
+fs.writeFileSync(path.join(__dirname, 'robots.txt'), `User-agent: *
+Allow: /
+
+Sitemap: ${DOMEN}sitemap.xml
+`);
+console.log('  sitemap.xml, robots.txt');
