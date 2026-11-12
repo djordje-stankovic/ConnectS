@@ -985,3 +985,144 @@ main { position: relative; }
   .s-hero h1 { font-size: 40px; }
   h1, h2 { overflow-wrap: break-word; }
 }
+
+/* ===========================================================================
+   TREĆI KRUG (12.11.): Prijava u sva tri proizvoda (meni, telefon, podnožje,
+   strana prijava.html) + reflektor u tamnim odeljcima, zrno, odsjaj reči.
+   =========================================================================== */
+
+/* ---------- Prijava u meniju: ploča se kači uz desnu ivicu ---------- */
+.pod-prijava > button { display: inline-flex; align-items: center; gap: 7px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); margin-left: 6px; }
+.pod-prijava > button > svg:first-child { margin: 0; transform: none !important; color: var(--narandza); }
+body.svetlo-zaglavlje .zaglavlje:not(.zalepljeno) .pod-prijava > button { box-shadow: inset 0 0 0 1px var(--linija); }
+.pod-prijava .pod-ploca { left: auto; right: -8px; width: 330px; transform: translateY(8px) scale(.98); transform-origin: 90% 0; }
+.pod-prijava:hover .pod-ploca, .pod-prijava:focus-within .pod-ploca { transform: none; }
+.pod-prijava .pod-ploca a:not(.pod-dno) { grid-template-columns: 44px 1fr auto; }
+.pod-str { color: var(--k); font-weight: 700; transform: translateX(-6px); opacity: 0; transition: transform .3s var(--ease), opacity .3s; }
+.pod-ploca a:hover .pod-str { transform: none; opacity: 1; }
+.znak-p { transition: box-shadow .35s var(--ease); }
+.pod-ploca a:hover .znak-p { box-shadow: 0 0 0 5px color-mix(in srgb, var(--k) 25%, transparent), 0 8px 24px -6px var(--k); }
+.pod-ploca .pod-dno { display: block; margin-top: 6px; padding: 14px 12px 8px; border-top: 1px solid var(--linija-tamna); border-radius: 0; font-size: 13px; color: var(--siv-svetao); }
+.pod-ploca .pod-dno:hover { background: none; color: var(--narandza); }
+
+.mob-meni .mob-prijava { display: flex; align-items: center; gap: 12px; margin-top: 18px; padding-top: 20px; border-top: 1px solid var(--linija-tamna); color: var(--narandza); }
+.mob-meni .mob-prijava small { margin-left: 0; }
+
+.podnozje-gore { grid-template-columns: 1.4fr 1fr 1fr .9fr 1.2fr; }
+
+.p-prijava { flex-basis: 100%; display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 14.5px; color: #b3bccb; text-decoration: none; }
+.p-prijava svg { width: 17px; height: 17px; color: var(--k); }
+.p-prijava b { color: #fff; font-weight: 700; transition: color .2s; }
+.p-prijava:hover b { color: var(--k); }
+
+/* ---------- strana Prijava: tri portala ---------- */
+.ulaz { padding-bottom: 120px; }
+.ulaz canvas#mreza { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .5; }
+.ulaz h1 { max-width: none; }
+.portali { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px; }
+.portal {
+  --mx: 50%; --my: 0%;
+  position: relative; display: flex; flex-direction: column; min-height: 450px; padding: 26px 26px 22px;
+  border-radius: 26px; color: #fff; isolation: isolate; overflow: hidden;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--k) 26%, #22324f) 0%, #1b2a43 55%, #172338 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 30px 70px -40px rgba(0,0,0,.8);
+}
+.portal.u { transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.portal.nagnut { transition: transform .18s ease-out, opacity .9s; transition-delay: 0s; }
+.portal.u:not(.nagnut) { transition: transform .7s var(--ease), opacity .9s var(--ease), box-shadow .5s; }
+.portal:hover { box-shadow: 0 50px 90px -40px color-mix(in srgb, var(--k) 60%, #000); }
+/* odsjaj koji prati miša */
+.portal::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .4s;
+  background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--k2) 30%, transparent), transparent 55%);
+}
+.portal:hover::before { opacity: 1; }
+/* ivica koja kruži */
+@property --ug { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.portal::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: conic-gradient(from var(--ug), transparent 0 55%, var(--k2) 70%, var(--k) 80%, transparent 92%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0; transition: opacity .5s; animation: ug-vrti 3.2s linear infinite;
+}
+.portal:hover::after, .portal:focus-within::after { opacity: 1; }
+@keyframes ug-vrti { to { --ug: 360deg; } }
+.portal-ulaz { position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
+.portal-ulaz:focus-visible { outline: 2px solid var(--k2); outline-offset: 3px; }
+.portal-gore { display: flex; align-items: center; justify-content: space-between; }
+.portal-adr { font: 500 12px/1 var(--mono); color: rgba(255,255,255,.55); display: inline-flex; align-items: center; gap: 7px; }
+.portal-adr::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--k2); box-shadow: 0 0 10px var(--k2); }
+.portal .oznaka { margin-top: auto; font: 600 11px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--k2); }
+.portal h2 { font-size: clamp(38px, 3.6vw, 52px); margin: 10px 0 8px; }
+.portal p { color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.5; margin: 0 0 22px; }
+.portal-dno { display: flex; align-items: center; justify-content: space-between; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); }
+.portal-str { font-weight: 700; font-size: 15.5px; }
+.portal-str b { display: inline-block; color: var(--k2); transition: transform .35s var(--ease); }
+.portal:hover .portal-str b { transform: translateX(6px); }
+.portal-demo { position: relative; z-index: 3; padding: 8px 15px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; color: rgba(255,255,255,.8); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); transition: background .25s, color .25s, box-shadow .25s; }
+.portal-demo:hover { background: #fff; color: var(--noc); box-shadow: none; }
+
+/* motivi: svaki proizvod radi svoj mali posao */
+.motiv { position: relative; height: 96px; margin: 34px 0 26px; }
+.motiv-vidik { width: 100%; overflow: visible; }
+.m-pov { fill: var(--k); opacity: .22; }
+.m-lin { fill: none; stroke: var(--k2); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 340; stroke-dashoffset: 340; }
+.portal.u .m-lin { animation: m-crtaj 1.6s var(--ease) .5s forwards; }
+.portal:hover .m-lin { animation: m-crtaj-opet 1.4s var(--ease); stroke-dashoffset: 0; }
+@keyframes m-crtaj { to { stroke-dashoffset: 0; } }
+@keyframes m-crtaj-opet { from { stroke-dashoffset: 340; } to { stroke-dashoffset: 0; } }
+.m-tac { fill: #fff; filter: drop-shadow(0 0 6px var(--k2)); animation: m-puls 1.8s ease-in-out infinite; transform-origin: 240px 10px; }
+@keyframes m-puls { 50% { transform: scale(1.6); } }
+
+.motiv-izlog { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; align-items: end; }
+.motiv-izlog i { height: 78%; border-radius: 12px; background: linear-gradient(170deg, var(--k2), var(--k)); opacity: calc(.95 - var(--i) * .15); transition: transform .5s var(--ease), opacity .3s; transition-delay: calc(var(--i) * 60ms); }
+.motiv-izlog i:nth-child(2) { box-shadow: 0 0 0 2px #fff; opacity: 1; }
+.portal:hover .motiv-izlog i { transform: translateY(-10px); }
+.motiv-izlog b { position: absolute; right: 0; top: -14px; font: 600 11.5px/1 var(--sans); padding: 6px 6px 6px 11px; border-radius: 999px; background: rgba(255,255,255,.1); display: inline-flex; align-items: center; gap: 7px; }
+.motiv-izlog b em { font-style: normal; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--k2); color: var(--noc); font-size: 10.5px; }
+.portal:hover .motiv-izlog b em { animation: m-skok .5s var(--ease); }
+@keyframes m-skok { 40% { transform: scale(1.45); } }
+
+.motiv-fioka { display: flex; align-items: center; gap: 22px; }
+.motiv-fioka .qr { width: 96px; margin: 0; padding: 7px; background: #f3f1ea; border-radius: 10px; flex: none; }
+.motiv-fioka .zrak { left: -4px; width: 104px; right: auto; top: 6px; background: var(--k2); box-shadow: 0 0 16px 3px var(--k2); animation: m-zrak 2.4s ease-in-out infinite alternate; }
+@keyframes m-zrak { to { top: 88px; } }
+.motiv-fioka b { font: 600 28px/1 var(--serif); letter-spacing: -.03em; display: grid; gap: 8px; }
+.motiv-fioka b small { font: 500 12px/1 var(--mono); color: var(--k2); letter-spacing: 0; }
+
+.ulaz-pomoc { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); }
+.ulaz-pomoc > div { display: grid; gap: 8px; align-content: start; }
+.ulaz-pomoc .ik { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--narandza) 12%, transparent); color: var(--narandza); margin-bottom: 8px; }
+.ulaz-pomoc b { font: 600 21px/1.2 var(--serif); letter-spacing: -.02em; }
+.ulaz-pomoc span:not(.ik) { color: var(--siv); font-size: 15.5px; }
+.ulaz-pomoc a { color: var(--narandza); font-weight: 600; text-decoration: none; }
+
+@media (max-width: 1080px) { .portali { grid-template-columns: 1fr; } .portal { min-height: 0; } .motiv { margin: 26px 0; } .podnozje-gore { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .ulaz-pomoc { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .podnozje-gore { grid-template-columns: 1fr; } }
+
+/* ---------- reflektor: u tamnom odeljku svetlo ide za mišem ---------- */
+@media (hover: hover) {
+  .odeljak.tamno { background: radial-gradient(640px circle at var(--sx, -50%) var(--sy, -50%), rgba(245,128,43,.09), transparent 62%), var(--noc); }
+}
+
+/* ---------- zrno preko cele strane: teget prestaje da bude „ravna boja" ---------- */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: .055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- naglašena reč: kad se pojavi, preko nje jednom pređe odsjaj ---------- */
+h1 em .rec > span, h2 em .rec > span {
+  background-image: linear-gradient(100deg, var(--em, var(--narandza)) 0 38%, #ffe7d2 50%, var(--em, var(--narandza)) 62% 100%);
+  background-size: 260% 100%; background-position: 100% 0;
+}
+.u em .rec > span { animation: em-odsjaj 1.6s var(--ease) calc(var(--i) * 70ms + .9s) both; }
+@keyframes em-odsjaj { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { body::after { display: none; } .portal.u { transform: none; } }
+
+/* sa Prijavom meni je ~900 px: zaglavlje šire od sadržaja, stavke zbijenije */
+.zaglavlje .omot { max-width: 1320px; }
+.meni > a, .meni > .pod > button { padding-left: 10px; padding-right: 10px; }

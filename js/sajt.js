@@ -641,3 +641,35 @@
   faktori[0].classList.add('akt');
   traka.style.setProperty('--p', 1 / faktori.length);
 })();
+
+/* ===========================================================================
+   TREĆI KRUG (12.11.): reflektor u tamnim odeljcima i nagib portala na
+   strani Prijava. Samo uz miša; telefon i „smanji pokret" ostaju mirni.
+   =========================================================================== */
+(function () {
+  'use strict';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+
+  document.addEventListener('pointermove', function (e) {
+    var el = e.target.closest && e.target.closest('.odeljak.tamno');
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.portal'), function (p) {
+    p.addEventListener('pointermove', function (e) {
+      var r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      p.classList.add('nagnut');
+      p.style.setProperty('--mx', (x * 100) + '%');
+      p.style.setProperty('--my', (y * 100) + '%');
+      p.style.setProperty('--ry', ((x - .5) * 10).toFixed(2) + 'deg');
+      p.style.setProperty('--rx', ((.5 - y) * 8).toFixed(2) + 'deg');
+    });
+    p.addEventListener('pointerleave', function () {
+      p.classList.remove('nagnut');
+      p.style.removeProperty('--rx'); p.style.removeProperty('--ry');
+    });
+  });
+})();

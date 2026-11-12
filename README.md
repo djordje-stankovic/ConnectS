@@ -16,6 +16,7 @@ nad PANTHEON-om: **Vidik**, **Izlog**, **Fioka**. Aplikacije rade gde i do sada
 | `implementacija.html` | 13 stvari pre izbora ERP-a + naš postupak |
 | `podrska.html` | šta podrška uključuje, načini rada |
 | `vidik.html`, `izlog.html`, `fioka.html` | strane proizvoda |
+| `prijava.html` | ulaz u Vidik, Izlog i Fioku (adrese u `PRIJAVA` u `napravi.js`) + demo; ista Prijava je i u meniju, na telefonu i u podnožju |
 | `kontakt.html` | podaci, mapa, upit (otvara mejl sa popunjenim upitom; `?upit=Vidik` unapred izabere vrstu) |
 
 ## Kako se menja

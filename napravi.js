@@ -10,7 +10,8 @@
    Strane se otvaraju i duplim klikom — nema servera ni build alata.
 
    U tekstu strane:  {{ik:ime}}  = ikona,  {{mk:vidik|izlog|fioka}} = mokap,
-                     {{demo:vidik|izlog|fioka}} = adresa demoa.
+                     {{demo:vidik|izlog|fioka}} = adresa demoa,
+                     {{prijava:vidik|izlog|fioka}} = adresa prijave.
    =========================================================================== */
 const fs = require('fs');
 const path = require('path');
@@ -27,6 +28,13 @@ const FIRMA = {
 const DEMO = {
   vidik: 'https://vidik.sajtpro.rs/prijava.html?demo',
   izlog: 'https://izlog.sajtpro.rs/s/demo/',
+  fioka: 'https://fioka.sajtpro.rs/'
+};
+/* Prijava: isti ulazi kao u meniju sajtpro.rs — Vidik na prijavu (ne demo),
+   Izlog na administraciju prodavnice, Fioka na svoj početni ekran. */
+const PRIJAVA = {
+  vidik: 'https://vidik.sajtpro.rs/prijava.html',
+  izlog: 'https://izlog.sajtpro.rs/admin/',
   fioka: 'https://fioka.sajtpro.rs/'
 };
 
@@ -54,6 +62,7 @@ const IK = {
   alat: '<path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>',
   graf: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   kamera: '<path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/>',
+  ulaz: '<path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',
   kljuc: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/>'
 };
 const ikona = (k, d = 24) => `<svg viewBox="0 0 24 24" width="${d}" height="${d}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IK[k] || ''}</svg>`;
@@ -65,9 +74,9 @@ const DRUSTVENE = {
 };
 
 const PROIZVODI = [
-  ['vidik', 'Vidik', 'Brojevi i kontrole iz PANTHEON-a, na telefonu', '--k:var(--vidik)'],
-  ['izlog', 'Izlog', 'Online prodavnica koja se puni iz PANTHEON-a', '--k:var(--izlog)'],
-  ['fioka', 'Fioka', 'Fiskalni računi sa telefona pravo u PANTHEON', '--k:var(--fioka)']
+  ['vidik', 'Vidik', 'Brojevi i kontrole iz PANTHEON-a, na telefonu', '--k:var(--vidik)', 'brojevi i kontrole'],
+  ['izlog', 'Izlog', 'Online prodavnica koja se puni iz PANTHEON-a', '--k:var(--izlog)', 'administracija prodavnice'],
+  ['fioka', 'Fioka', 'Fiskalni računi sa telefona pravo u PANTHEON', '--k:var(--fioka)', 'računi sa telefona']
 ];
 
 /* ---------------------------------------------------------------- mokapi */
@@ -180,6 +189,12 @@ function zaglavlje(meni) {
     ${a('podrska.html', 'Podrška')}
     ${a('o-nama.html', 'O nama')}
     ${a('kontakt.html', 'Kontakt')}
+    <div class="pod pod-prijava${meni === 'prijava.html' ? ' akt' : ''}"><button type="button" aria-haspopup="true">${ikona('ulaz', 16)} Prijava ${strelica}</button>
+      <div class="pod-ploca">
+        ${PROIZVODI.map(p => `<a href="${PRIJAVA[p[0]]}" style="${p[3]}"><span class="znak-p">${ikona(p[0])}</span><span><b>${p[1]}</b><small>${p[4]}</small></span><span class="pod-str">→</span></a>`).join('\n        ')}
+        <a class="pod-dno" href="prijava.html">Nemate nalog? Probajte demo bez prijave →</a>
+      </div>
+    </div>
     <a class="dugme mag" href="kontakt.html">Zakažite razgovor</a>
   </nav>
   <button class="burger" type="button" aria-label="Meni" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -192,6 +207,7 @@ function zaglavlje(meni) {
   <a href="podrska.html">Podrška</a>
   <a href="o-nama.html">O nama</a>
   <a href="kontakt.html">Kontakt</a>
+  <a class="mob-prijava" href="prijava.html">${ikona('ulaz', 26)} Prijava<small>Vidik · Izlog · Fioka</small></a>
 </nav>`;
 }
 
@@ -212,6 +228,10 @@ function podnozje() {
     </ul></div>
     <div><h4>Naši proizvodi</h4><ul>
       ${PROIZVODI.map(p => `<li><a href="${p[0]}.html">${p[1]}</a></li>`).join('\n      ')}
+    </ul></div>
+    <div><h4>Prijava</h4><ul>
+      ${PROIZVODI.map(p => `<li><a href="${PRIJAVA[p[0]]}">${p[1]}</a></li>`).join('\n      ')}
+      <li><a href="prijava.html">Demo bez naloga →</a></li>
     </ul></div>
     <div><h4>Kontakt</h4><ul>
       <li><a href="${FIRMA.mapa}" target="_blank" rel="noopener">${FIRMA.adresa}</a></li>
@@ -270,6 +290,7 @@ for (const f of izvori) {
     .replace(/\{\{ik:(\w+)\}\}/g, (_, k) => ikona(k))
     .replace(/\{\{mk:(\w+)\}\}/g, (_, k) => MK[k])
     .replace(/\{\{demo:(\w+)\}\}/g, (_, k) => DEMO[k])
+    .replace(/\{\{prijava:(\w+)\}\}/g, (_, k) => PRIJAVA[k])
     .replace(/\{\{(tel|telHref|mejl|adresa|mapa)\}\}/g, (_, k) => FIRMA[k]);
   const neizvrseno = src.match(/\{\{[^}]+\}\}/);
   if (neizvrseno) throw new Error(f + ': nepoznato ' + neizvrseno[0]);
