@@ -120,7 +120,7 @@ body.svetlo-zaglavlje .zaglavlje:not(.zalepljeno) { color: var(--tekst); }
 .zaglavlje { color: #fff; }
 
 .logo { display: inline-grid; grid-template-columns: auto auto auto; align-items: center; column-gap: 8px; text-decoration: none; line-height: 1; flex-shrink: 0; }
-.logo-z { grid-row: 1 / 3; width: 46px; height: 46px; margin-right: 4px; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+.logo-z { grid-row: 1 / 3; width: 46px; height: 46px; min-width: 46px; margin-right: 4px; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
 .logo-w { font: 800 22px/1 var(--sans); letter-spacing: -.035em; }
 .logo-w b { color: var(--narandza); font-weight: 800; }
 .logo-d { display: inline-flex; gap: 3px; }
@@ -556,7 +556,12 @@ body.meni-otvoren .mob-meni a { opacity: 1; transform: none; transition-delay: c
 /* ---------------------------------------------------------------- podnožje */
 .podnozje { background: var(--noc); color: #aab3c3; padding: 90px 0 36px; position: relative; overflow: hidden; }
 .podnozje-gore { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.podnozje .logo { color: #fff; margin-bottom: 22px; }
+.podnozje .logo { color: #fff; margin-bottom: 26px; grid-template-columns: auto auto; }
+.podnozje .logo-z { grid-row: auto; grid-column: 1 / -1; width: 76px; height: 76px; min-width: 76px; border-radius: 17px; margin: 0 0 18px; }
+.podnozje .logo-w { font-size: 28px; }
+.podnozje .logo-d { gap: 4px; }
+.podnozje .logo-d i { width: 11px; height: 11px; }
+.podnozje .logo-s { grid-column: 1 / -1; font-size: 10px; margin-top: 8px; }
 .podnozje h4 { margin: 0 0 16px; font: 600 12px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: #fff; }
 .podnozje ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .podnozje a { text-decoration: none; transition: color .2s; font-size: 15px; }
