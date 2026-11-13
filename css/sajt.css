@@ -119,7 +119,8 @@ p { margin: 0 0 1em; }
 body.svetlo-zaglavlje .zaglavlje:not(.zalepljeno) { color: var(--tekst); }
 .zaglavlje { color: #fff; }
 
-.logo { display: inline-grid; grid-template-columns: auto auto; align-items: center; column-gap: 8px; text-decoration: none; line-height: 1; }
+.logo { display: inline-grid; grid-template-columns: auto auto auto; align-items: center; column-gap: 8px; text-decoration: none; line-height: 1; flex-shrink: 0; }
+.logo-z { grid-row: 1 / 3; width: 46px; height: 46px; margin-right: 4px; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
 .logo-w { font: 800 22px/1 var(--sans); letter-spacing: -.035em; }
 .logo-w b { color: var(--narandza); font-weight: 800; }
 .logo-d { display: inline-flex; gap: 3px; }
@@ -128,7 +129,7 @@ body.svetlo-zaglavlje .zaglavlje:not(.zalepljeno) { color: var(--tekst); }
 .logo-d i:nth-child(3) { animation-delay: .3s; }
 @keyframes tacka { 0%, 70%, 100% { transform: none; } 80% { transform: translateY(-4px); } }
 .logo-s {
-  grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin-top: 5px;
+  grid-column: 2 / -1; display: flex; align-items: center; gap: 8px; margin-top: 5px;
   font: 600 8.5px/1 var(--sans); letter-spacing: .5em; opacity: .75;
 }
 .logo-s::before, .logo-s::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: .6; }
@@ -571,7 +572,7 @@ body.meni-otvoren .mob-meni a { opacity: 1; transform: none; transition-delay: c
 .jezici { display: flex; gap: 14px; }
 
 /* ---------------------------------------------------------------- telefon i uže */
-@media (max-width: 1240px) {
+@media (max-width: 1300px) {
   .meni { display: none; }
   .burger { display: block; }
 }
@@ -615,6 +616,7 @@ body.meni-otvoren .mob-meni a { opacity: 1; transform: none; transition-delay: c
   body { font-size: 16px; }
   .zaglavlje .omot { height: 66px; }
   .logo-w { font-size: 19px; }
+  .logo-z { width: 38px; height: 38px; }
   .logo-d i { width: 7.5px; height: 7.5px; }
   .podnozje-gore, .verzije, .dva { grid-template-columns: 1fr; }
   .mk-kpi b { font-size: 13px; white-space: nowrap; }

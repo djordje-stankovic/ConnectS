@@ -173,7 +173,7 @@ const ZUPCANICI = `<div class="zupcanici" aria-hidden="true"><svg viewBox="0 0 6
 const NIT = `<svg class="nit" aria-hidden="true"><defs><linearGradient id="nit-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb27a"/><stop offset="1" stop-color="#f5802b"/></linearGradient></defs><path class="nit-staza"/><path class="nit-tok"/><g class="nit-cvorovi"></g><circle class="nit-glava" r="4.5" cx="-20" cy="-20"/></svg>`;
 
 /* ---------------------------------------------------------------- delovi */
-const LOGO = `<a class="logo" href="index.html" aria-label="${FIRMA.ime} — početna"><span class="logo-w"><b>connect</b>software</span><span class="logo-d"><i></i><i></i><i></i></span><span class="logo-s">SOLUTIONS</span></a>`;
+const LOGO = `<a class="logo" href="index.html" aria-label="${FIRMA.ime} — početna"><img class="logo-z" src="img/znak.svg" alt="" width="46" height="46"><span class="logo-w"><b>connect</b>software</span><span class="logo-d"><i></i><i></i><i></i></span><span class="logo-s">SOLUTIONS</span></a>`;
 const strelica = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>';
 
 function zaglavlje(meni) {
@@ -267,6 +267,7 @@ const ORGANIZACIJA = {
   name: FIRMA.ime,
   alternateName: ['Connect Software', 'CSS'],
   url: DOMEN,
+  logo: DOMEN + '/img/znak.svg',
   description: 'Premium partner za PANTHEON ERP iz Novog Sada, više od 15 godina: prodaja, implementacija, podrška i prilagođavanje PANTHEON-a za mala i srednja preduzeća u Srbiji, i sopstveni proizvodi nad PANTHEON-om — Vidik, Izlog i Fioka.',
   telephone: FIRMA.tel,
   email: FIRMA.mejl,
@@ -346,7 +347,7 @@ function strana(meta, telo, fajl) {
 <meta property="og:site_name" content="${FIRMA.ime}">
 <meta property="og:locale" content="sr_RS">
 <script type="application/ld+json">${strukturirano(meta, telo, fajl)}</script>
-<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#0a101c'/><circle cx='8' cy='16' r='4' fill='#f5802b'/><circle cx='16' cy='16' r='4' fill='#f5802b'/><circle cx='24' cy='16' r='4' fill='#f5802b'/></svg>`)}">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap">
