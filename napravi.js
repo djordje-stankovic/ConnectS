@@ -68,7 +68,14 @@ const IK = {
   graf: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   kamera: '<path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/>',
   ulaz: '<path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',
-  kljuc: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/>'
+  kljuc: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/>',
+  prilog: '<path d="M20 11.5l-8.4 8.4a5 5 0 01-7.1-7.1l8.8-8.8a3.3 3.3 0 014.7 4.7l-8.8 8.8a1.7 1.7 0 01-2.4-2.4l8-8"/>',
+  domen: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+  poruka: '<path d="M3 10v4h3l7 4V6L6 10z"/><path d="M17 9a4 4 0 010 6M19.5 6.5a7.5 7.5 0 010 11"/>',
+  firme: '<rect x="3" y="8" width="8" height="13" rx="1"/><rect x="13" y="3" width="8" height="18" rx="1"/><path d="M6 12h2M6 16h2M16 7h2M16 11h2M16 15h2"/>',
+  pravilo: '<path d="M4 6h16M4 12h10M4 18h6"/><path d="M16 16l2 2 4-4"/>',
+  lupa: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+  tema: '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18z" fill="currentColor"/>'
 };
 const ikona = (k, d = 24) => `<svg viewBox="0 0 24 24" width="${d}" height="${d}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IK[k] || ''}</svg>`;
 
