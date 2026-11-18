@@ -824,3 +824,42 @@
     meri();
   });
 })();
+
+/* ===========================================================================
+   PETI KRUG (18.11.): BAKLJA na velikom natpisu u podnožju. Narandžasta iz
+   znaka gori tamo gde je miš, prati ga sa malim kašnjenjem i treperi kao
+   plamen. Samo uz miša; „smanji pokret" dobija mirno svetlo bez treperenja.
+   =========================================================================== */
+(function () {
+  'use strict';
+  var svg = document.querySelector('.veliki-znak'), g = document.getElementById('baklja');
+  if (!svg || !g || !matchMedia('(hover: hover)').matches) return;
+  var mirno = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cilj = { x: 500, y: 60 }, poz = { x: 500, y: 60 }, radi = false, t0 = performance.now();
+
+  function uSvg(e) {
+    var r = svg.getBoundingClientRect();
+    return { x: (e.clientX - r.left) / r.width * 1000, y: (e.clientY - r.top) / r.height * 118 };
+  }
+  function kadar(t) {
+    var k = mirno ? 1 : .18;
+    poz.x += (cilj.x - poz.x) * k; poz.y += (cilj.y - poz.y) * k;
+    var s = (t - t0) / 1000;
+    /* treperenje: zbir tri sinusa različitih brzina — nepravilno, a glatko */
+    var tr = mirno ? 0 : Math.sin(s * 9.1) * 7 + Math.sin(s * 15.7) * 4 + Math.sin(s * 3.3) * 6;
+    g.setAttribute('cx', poz.x.toFixed(1));
+    g.setAttribute('cy', (poz.y - (mirno ? 0 : 4 + Math.sin(s * 11.3) * 2)).toFixed(1));
+    g.setAttribute('r', (190 + tr).toFixed(1));
+    if (radi) requestAnimationFrame(kadar);
+  }
+  svg.addEventListener('pointerenter', function (e) {
+    var p = uSvg(e); cilj = p; poz = { x: p.x, y: p.y };
+    svg.classList.add('gori');
+    if (!radi) { radi = true; requestAnimationFrame(kadar); }
+  });
+  svg.addEventListener('pointermove', function (e) { cilj = uSvg(e); }, { passive: true });
+  svg.addEventListener('pointerleave', function () {
+    svg.classList.remove('gori');
+    setTimeout(function () { if (!svg.classList.contains('gori')) radi = false; }, 500);
+  });
+})();
